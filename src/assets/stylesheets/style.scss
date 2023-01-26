@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+  list-style: none;
+  font-family: "Catamaran", sans-serif;
+  text-decoration: none;
+}
+
+body {
+  background-color: black;
+  color: whitesmoke;
+  height: 400vh;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0px;
+  .baner_form_container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    input {
+      height: 55px;
+      padding: 10px;
+      font-size: 20px;
+      margin-right: 10px;
+      max-width: 300px;
+      width: 100%;
+      border: none;
+      background-color: rgb(52, 52, 64);
+      color: white;
+      border-radius: 5px;
+    }
+  }
+  .text {
+    h1 {
+      font-size: 75px;
+      font-weight: 900;
+      span {
+        background-image: linear-gradient(
+          52deg,
+          rgb(28, 126, 214) 3%,
+          rgb(16, 152, 173) 97%
+        );
+        color: transparent;
+        background-clip: text;
+      }
+      line-height: 1.1;
+    }
+    p {
+      font-size: 22px;
+      margin: 10px 0px;
+      max-width: 500px;
+      // rgb(106,94,225)
+    }
+    button {
+      background-image: linear-gradient(
+        52deg,
+        rgb(28, 126, 214) 3%,
+        rgb(16, 152, 173) 97%
+      );
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 5px;
+    }
+  }
+  img {
+    width: 550px;
+  }
+}
+
+nav {
+  padding: 0px 5%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
+    gap: 5px;
+  }
+  .nav_btns {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    a {
+      font-weight: 500;
+      font-size: 18px;
+      &:nth-child(2) {
+        button {
+          padding:5px 20px;
+          border: none;
+          border-radius: 5px;
+          font-size: 18px;
+          background-image: linear-gradient(
+            52deg,
+            rgb(28, 126, 214) 3%,
+            rgb(16, 152, 173) 97%
+          );
+        }
+      }
+    }
+  }
+}
+
+.services {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h1 {
+    font-size: 75px;
+    font-weight: 900;
+    span {
+      background-image: linear-gradient(
+        52deg,
+        rgb(28, 126, 214) 3%,
+        rgb(16, 152, 173) 97%
+      );
+      color: transparent;
+      background-clip: text;
+    }
+    line-height: 1.1;
+  }
+  .service_container {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 50px 0px;
+    gap: 30px;
+    .card {
+    }
+  }
+}

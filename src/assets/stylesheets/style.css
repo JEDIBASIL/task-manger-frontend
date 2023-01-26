@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+  list-style: none;
+  font-family: "Catamaran", sans-serif;
+  text-decoration: none;
+}
+
+body {
+  background-color: black;
+  color: whitesmoke;
+  height: 400vh;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0px;
+}
+.banner .baner_form_container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.banner .baner_form_container input {
+  height: 55px;
+  padding: 10px;
+  font-size: 20px;
+  margin-right: 10px;
+  max-width: 300px;
+  width: 100%;
+  border: none;
+  background-color: rgb(52, 52, 64);
+  color: white;
+  border-radius: 5px;
+}
+.banner .text h1 {
+  font-size: 75px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.banner .text h1 span {
+  background-image: linear-gradient(52deg, rgb(28, 126, 214) 3%, rgb(16, 152, 173) 97%);
+  color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+.banner .text p {
+  font-size: 22px;
+  margin: 10px 0px;
+  max-width: 500px;
+}
+.banner .text button {
+  background-image: linear-gradient(52deg, rgb(28, 126, 214) 3%, rgb(16, 152, 173) 97%);
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+.banner img {
+  width: 550px;
+}
+
+nav {
+  padding: 0px 5%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav .logo {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 600;
+  gap: 5px;
+}
+nav .nav_btns {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+nav .nav_btns a {
+  font-weight: 500;
+  font-size: 18px;
+}
+nav .nav_btns a:nth-child(2) button {
+  padding: 5px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  background-image: linear-gradient(52deg, rgb(28, 126, 214) 3%, rgb(16, 152, 173) 97%);
+}
+
+.services {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.services h1 {
+  font-size: 75px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.services h1 span {
+  background-image: linear-gradient(52deg, rgb(28, 126, 214) 3%, rgb(16, 152, 173) 97%);
+  color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+.services .service_container {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 50px 0px;
+  gap: 30px;
+}/*# sourceMappingURL=style.css.map */
