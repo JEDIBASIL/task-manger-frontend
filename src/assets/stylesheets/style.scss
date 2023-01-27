@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&family=Noto+Color+Emoji&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -9,10 +9,46 @@
   text-decoration: none;
 }
 
+:root {
+  --sidebar_border: rgb(224, 224, 224);
+  --sidebar_color: rgb(92, 92, 92);
+  --sidebar_active: rgb(34,139,230);
+  --sidebar_hover: rgb(231, 231, 231);
+  --sidebar_background_color: white;
+  --sidebar_background_color: rgb(243, 245, 247);
+  --sidebar_logo_color: rgb(43, 43, 43);
+
+  --sidebar_border: rgb(110, 111, 118);
+  --sidebar_color: rgb(234, 234, 234);
+  --sidebar_hover: rgb(38, 51, 90);
+  --sidebar_background_color: rgb(4,31,51);
+  --sidebar_logo_color: white;
+  --sidebar_icon_background: rgb(54, 63, 69);
+
+  --background_color: rgb(243, 245, 247);
+  --background_color: white;
+  --container_color: #ffffff;
+  --border: rgb(237, 237, 237);
+  --color: rgb(53, 53, 53);
+  --lighter_color: gray;
+}
+
+[data-theme="dark"] {
+  --sidebar_border: rgb(55, 59, 65);
+  --sidebar_color: rgb(213, 213, 213);
+  --background_color: rgb(32, 33, 37);
+  --container_color: rgb(37, 38, 43);
+  --sidebar_hover: rgb(35, 36, 45);
+  --sidebar_active: rgb(40, 43, 73);
+  --sidebar_background_color: rgb(27, 28, 32);
+  --border: rgb(55, 59, 65);
+  --color: rgb(230, 230, 230);
+  --lighter_color: rgb(206, 206, 206);
+}
+
 body {
-  background-color: black;
-  color: whitesmoke;
-  height: 400vh;
+  background-color: white;
+  color: black;
 }
 
 .banner {
@@ -26,15 +62,15 @@ body {
     margin-top: 10px;
 
     input {
-      height: 55px;
+      height: 60px;
       padding: 10px;
       font-size: 20px;
       margin-right: 10px;
-      max-width: 300px;
+      max-width: 320px;
       width: 100%;
       border: none;
-      background-color: rgb(52, 52, 64);
-      color: white;
+      background-color: whitesmoke;
+      border: 1px solid gainsboro;
       border-radius: 5px;
     }
   }
@@ -57,7 +93,7 @@ body {
       font-size: 22px;
       margin: 10px 0px;
       max-width: 500px;
-      // rgb(106,94,225)
+      color: rgb(84, 84, 84);
     }
     button {
       background-image: linear-gradient(
@@ -99,15 +135,118 @@ nav {
       font-size: 18px;
       &:nth-child(2) {
         button {
-          padding:5px 20px;
+          padding: 5px 20px;
           border: none;
           border-radius: 5px;
           font-size: 18px;
+          color: white;
           background-image: linear-gradient(
             52deg,
             rgb(28, 126, 214) 3%,
             rgb(16, 152, 173) 97%
           );
+        }
+      }
+    }
+  }
+}
+
+.app_container {
+  background-color: var(--background_color);
+  min-height: 100vh;
+  display: flex;
+  .sidebar {
+    background-color: var(--sidebar_background_color);
+    border-right: 1px solid var(--sidebar_border);
+    height: 100vh;
+    max-width: 300px;
+    width: 300px;
+    min-width: 300px;
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 1;
+      gap: 5px;
+    }
+    ul{
+      margin-top: 30px;
+    }
+    li{
+      a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 15px;
+        line-height: 1;
+        position: relative;
+        &:hover{
+          background-color: var(--sidebar_hover) ;
+        }
+        &.active:not(.inactive){
+          background-color: var(--sidebar_active) !important;
+          span{
+            color: white !important;
+          }
+          svg{
+            color: white !important;
+          }
+          &::before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgb(34,139,230);
+            width: 3px;
+            height: 100%;
+          }
+        }
+        svg{
+          color:var(--sidebar_color) !important;
+          fill:ar(--sidebar_color) !important ;
+        }
+        span {
+          font-size: 16px;
+          font-weight: 600;
+          color:var(--sidebar_color);
+        }
+      }
+    }
+    .sidebar_recent_task{
+      border-top: 1px solid var(--sidebar_border);
+      margin: 10px 0px;
+      padding: 10px 0px;
+      h3{
+        color: gray;
+        font-weight:400;
+        padding: 0px 10px;
+        font-size: 16px;
+      }
+    }
+  }
+  .home_content{
+    width: 100%;
+    padding: 30px 30px;
+    .content{
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 15px;
+      width: 100%;
+      margin-top: 20px;
+      .content_box{
+        background-color: var(--container_color);
+        height: 200px;
+        border: 1px solid var(--border);
+        &:nth-child(2){
+          padding: 20px;
+          height: 100%;
+          h2{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+          }
         }
       }
     }
@@ -141,6 +280,62 @@ nav {
     margin: 50px 0px;
     gap: 30px;
     .card {
+    }
+  }
+}
+
+.form_content {
+  max-width: 650px;
+  width: 100%;
+  padding: 5% 5%;
+  margin: auto;
+  min-height: calc(100vh - 60px);
+  h1 {
+    font-size: 70px;
+    font-weight: 900;
+    background-image: linear-gradient(
+      52deg,
+      rgb(28, 126, 214) 3%,
+      rgb(16, 152, 173) 97%
+    );
+    color: transparent;
+    margin-bottom: 20px;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .img_container {
+    text-align: center;
+    img {
+      width: 300px;
+    }
+    p {
+      font-size: 20px;
+      color: rgb(84, 84, 84);
+    }
+  }
+
+  h2 {
+  }
+  .forgot_password_container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    transform: translateY(-10px);
+    font-size: 15px;
+    color: rgb(16, 152, 173);
+  }
+  .more {
+    font-size: 20px;
+    margin-top: 20px;
+    color: rgb(84, 84, 84);
+    a {
+      background-image: linear-gradient(
+        52deg,
+        rgb(28, 126, 214) 3%,
+        rgb(16, 152, 173) 97%
+      );
+      color: transparent;
+      background-clip: text;
     }
   }
 }

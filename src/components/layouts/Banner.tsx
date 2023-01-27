@@ -3,8 +3,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const Banner: React.FC = () => {
     const { scrollYProgress } = useScroll();
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-    const scale = useTransform(scrollYProgress, [0, 1], ["100%", "140%"]);
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+    const scale = useTransform(scrollYProgress, [0, 1], ["100%", "110%"]);
     return (
         <>
             <div className="banner">
@@ -15,7 +15,7 @@ const Banner: React.FC = () => {
                     <div className="baner_form_container"><input placeholder="Enter email address" type="email" /> <button>Get started for free</button></div>
                 </div>
                 <motion.div
-                    style={{ y, scale: scale }}
+                   
                 >
                     <img src={heroImg} alt="" />
                 </motion.div>
