@@ -1,28 +1,93 @@
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { Navbar } from "../../components";
-import { Link as A } from "react-router-dom"
+import { Link as A, useNavigate } from "react-router-dom"
+import { signUpSchema } from "../../schema";
+import { useForm, zodResolver } from "@mantine/form";
+import { requestHandler } from "../../api/useFetchApi";
+import { useEffect, useState } from "react";
+import { showNotification } from '@mantine/notifications';
+import ApiState from "../../interface/api.interface";
 
 
 
 const SignUp: React.FC = () => {
+    const navigate = useNavigate();
+
+    
+    const [state, setState] = useState<ApiState>({
+        data: null,
+        loading: false,
+        error: null
+    });
+    const form = useForm({
+        validate: zodResolver(signUpSchema),
+        initialValues: {
+            username: "",
+            email: "",
+            password: "",
+        },
+    });
+
+    useEffect(() => {
+        console.log(state)
+        if (state.error?.data.includes("username")) showNotification({
+            title: 'Failed',
+            message: 'Username taken',
+        })
+        if (state.error?.data.includes("email")) showNotification({
+            title: 'Failed',
+            message: 'Email taken',
+        })
+        if (state.error?.data.includes("failed") || state.error?.data.includes("error")) showNotification({
+            title: 'Error',
+            message: 'an error occurred',
+        })
+        if (state?.data?.status && state.data?.status.includes("success")) {
+            navigate("/sent");
+            showNotification({
+                title: 'Success',
+                message: 'Account created',
+            })
+        }
+    }, [state.data, state.error])
+
+    const handleSubmit = (user: any) => {
+        let newUser = {
+            username: user.username,
+            email: user.email,
+            password: user.password
+        }
+        console.log(newUser)
+        requestHandler(
+            {
+                method: "post",
+                url: "http://localhost:8084/api/v1/user/create",
+                data: newUser
+            },
+            setState
+        )
+
+    }
+
     return (
         <>
             <Navbar logo />
-            {/* <MantineProvider theme={{ colorScheme: 'dark' }}> */}
-
             <div className={"form_content"}>
                 <h1>try Gram
                     for free</h1>
-                <TextInput mb={15} placeholder={"Your username"} size={"lg"} type={"text"} />
-                <TextInput mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
-                <PasswordInput mb={15} placeholder={"Password"} size={"lg"} />
-                <Button size={"lg"} variant="gradient" gradient={{ from: 'rgb(16, 152, 173) ', to: 'rgb(28, 126, 214)', deg: 105 }}>Create account</Button>
+                <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+                    <TextInput {...form.getInputProps('username')} mb={15} placeholder={"Your username"} size={"lg"} type={"text"} />
+                    <TextInput {...form.getInputProps('email')} mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
+                    <PasswordInput {...form.getInputProps('password')} mb={15} placeholder={"Password"} size={"lg"} />
+                    <Button loading={state.loading} type={"submit"} size={"lg"}>Create account</Button>
+                </form>
                 <p className={"more"}><A to="/sign-in">Sign in</A> if you already have an account</p>
             </div>
-            {/* </MantineProvider> */}
-
         </>
     );
 };
 
 export default SignUp;
+
+
+
