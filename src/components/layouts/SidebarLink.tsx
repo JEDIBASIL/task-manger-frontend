@@ -12,7 +12,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ name, path, icon,className })
         <>
             <li>
                 <A to={path} className={className}>
-                    <ActionIcon size={20} variant="transparent" >
+                    <ActionIcon size={24} variant="transparent" >
                         {icon}
                     </ActionIcon>
                     <span>{name}</span>

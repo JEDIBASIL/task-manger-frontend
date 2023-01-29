@@ -6,8 +6,8 @@ interface PageHeader {
 const App: React.FC<PageHeader> = ({ emoji, name }) => {
     return (
         <>
-            <div>
-                <h1><span>{emoji} {name}</span></h1>
+            <div className="page_header">
+                <h2><span>{emoji} {name}</span></h2>
             </div>
         </>
     );

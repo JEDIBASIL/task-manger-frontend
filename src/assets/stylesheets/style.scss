@@ -10,22 +10,22 @@
 }
 
 :root {
-  --sidebar_border: rgb(224, 224, 224);
-  --sidebar_color: rgb(92, 92, 92);
-  --sidebar_active: rgb(34,139,230);
+  --sidebar_border: rgb(237, 237, 237);
+  --sidebar_color: rgb(41, 41, 41);
+  --sidebar_active: rgb(238, 242, 253);
   --sidebar_hover: rgb(231, 231, 231);
   --sidebar_background_color: white;
-  --sidebar_background_color: rgb(243, 245, 247);
   --sidebar_logo_color: rgb(43, 43, 43);
+  --todo_list_background_color: white;
 
-  --sidebar_border: rgb(110, 111, 118);
-  --sidebar_color: rgb(234, 234, 234);
-  --sidebar_hover: rgb(38, 51, 90);
-  --sidebar_background_color: rgb(4,31,51);
-  --sidebar_logo_color: white;
-  --sidebar_icon_background: rgb(54, 63, 69);
+  // --sidebar_active: rgb(56, 85, 164);
+  // --sidebar_color: rgb(234, 234, 234);
+  // --sidebar_hover: rgb(38, 51, 90);
+  // --sidebar_background_color: rgb(4,31,51);
+  // --sidebar_logo_color: white;
+  // --sidebar_icon_background: rgb(54, 63, 69);
 
-  --background_color: rgb(243, 245, 247);
+  --background_color_2: rgb(250, 250, 253);
   --background_color: white;
   --container_color: #ffffff;
   --border: rgb(237, 237, 237);
@@ -34,35 +34,39 @@
 }
 
 [data-theme="dark"] {
-  --sidebar_border: rgb(55, 59, 65);
-  --sidebar_color: rgb(213, 213, 213);
-  --background_color: rgb(32, 33, 37);
-  --container_color: rgb(37, 38, 43);
-  --sidebar_hover: rgb(35, 36, 45);
-  --sidebar_active: rgb(40, 43, 73);
-  --sidebar_background_color: rgb(27, 28, 32);
-  --border: rgb(55, 59, 65);
+  --sidebar_border: rgb(43, 46, 50);
+  --sidebar_active: rgb(56, 85, 164);
+  --sidebar_color: rgb(245, 245, 245);
+  // --background_color:  rgb(17, 18, 20);
+  --background_color: rgb(25, 26, 30);
+  // --container_color: rgb(17, 18, 20);
+  --container_color: rgb(25, 26, 30);
+  // --background_color_2: rgb(27, 28, 32);
+  --background_color_2: rgb(17, 18, 20);
+  --sidebar_hover: rgb(29, 30, 38);
+  --sidebar_background_color: rgb(25, 26, 30);
+  --border: rgb(43, 46, 50);
   --color: rgb(230, 230, 230);
   --lighter_color: rgb(206, 206, 206);
+  --todo_list_background_color: rgb(38, 39, 47);
 }
 
 body {
   background-color: white;
-  color: black;
 }
 
 .banner {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px 0px;
+  padding: 20px 0px;
   .baner_form_container {
     display: flex;
     align-items: center;
     margin-top: 10px;
 
     input {
-      height: 60px;
+      height: 55px;
       padding: 10px;
       font-size: 20px;
       margin-right: 10px;
@@ -72,35 +76,25 @@ body {
       background-color: whitesmoke;
       border: 1px solid gainsboro;
       border-radius: 5px;
+      display: none;
     }
   }
   .text {
     h1 {
-      font-size: 75px;
+      font-size: 55px;
       font-weight: 900;
-      span {
-        background-image: linear-gradient(
-          52deg,
-          rgb(28, 126, 214) 3%,
-          rgb(16, 152, 173) 97%
-        );
-        color: transparent;
-        background-clip: text;
-      }
+      color: rgb(50, 50, 50);
       line-height: 1.1;
     }
     p {
       font-size: 22px;
       margin: 10px 0px;
       max-width: 500px;
-      color: rgb(84, 84, 84);
+      color: rgb(101, 101, 101) !important;
     }
     button {
-      background-image: linear-gradient(
-        52deg,
-        rgb(28, 126, 214) 3%,
-        rgb(16, 152, 173) 97%
-      );
+      background-color: rgb(28, 126, 214);
+      white-space: nowrap;
       color: white;
       border: none;
       padding: 15px;
@@ -140,11 +134,7 @@ nav {
           border-radius: 5px;
           font-size: 18px;
           color: white;
-          background-image: linear-gradient(
-            52deg,
-            rgb(28, 126, 214) 3%,
-            rgb(16, 152, 173) 97%
-          );
+          background-color: rgb(28, 126, 214);
         }
       }
     }
@@ -152,9 +142,24 @@ nav {
 }
 
 .app_container {
-  background-color: var(--background_color);
+  background-color: var(--background_color_2);
   min-height: 100vh;
   display: flex;
+  color: var(--color);
+  .tab_header {
+    font-weight: 500;
+  }
+  .page_header {
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    background-color: var(--container_color);
+    h2 {
+      font-weight: 800;
+      font-size: 28px;
+    }
+  }
   .sidebar {
     background-color: var(--sidebar_background_color);
     border-right: 1px solid var(--sidebar_border);
@@ -162,6 +167,9 @@ nav {
     max-width: 300px;
     width: 300px;
     min-width: 300px;
+    position: sticky;
+    top: 0;
+    left: 0;
     .logo {
       display: flex;
       align-items: center;
@@ -170,10 +178,11 @@ nav {
       line-height: 1;
       gap: 5px;
     }
-    ul{
+    ul {
       margin-top: 30px;
     }
-    li{
+    li {
+      padding: 0px 10px;
       a {
         display: flex;
         align-items: center;
@@ -181,73 +190,119 @@ nav {
         padding: 5px 15px;
         line-height: 1;
         position: relative;
-        &:hover{
-          background-color: var(--sidebar_hover) ;
+        border-radius: 5px;
+        &:hover {
+          background-color: var(--sidebar_hover);
         }
-        &.active:not(.inactive){
+        &.active:not(.inactive) {
           background-color: var(--sidebar_active) !important;
-          span{
-            color: white !important;
-          }
-          svg{
-            color: white !important;
-          }
-          &::before{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgb(34,139,230);
-            width: 3px;
-            height: 100%;
-          }
         }
-        svg{
-          color:var(--sidebar_color) !important;
-          fill:ar(--sidebar_color) !important ;
+        svg {
+          color: var(--sidebar_color) !important;
+          fill: ar(--sidebar_color) !important ;
         }
         span {
-          font-size: 16px;
-          font-weight: 600;
-          color:var(--sidebar_color);
+          font-size: 17px;
+          font-weight: 500;
+          color: var(--sidebar_color);
         }
       }
     }
-    .sidebar_recent_task{
+    .sidebar_recent_task {
       border-top: 1px solid var(--sidebar_border);
       margin: 10px 0px;
       padding: 10px 0px;
-      h3{
-        color: gray;
-        font-weight:400;
+      h3 {
+        font-weight: 400;
         padding: 0px 10px;
         font-size: 16px;
       }
     }
   }
-  .home_content{
+  .todo_list {
+    background-color: var(--todo_list_background_color);
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.195);
+    margin-bottom: 8px;
+    .todos_name {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .home_content {
     width: 100%;
-    padding: 30px 30px;
-    .content{
+    .page_header {
+      border-bottom: 1px solid var(--border);
+    }
+    .content {
       width: 100%;
-      display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 15px;
+      display: flex;
       width: 100%;
-      margin-top: 20px;
-      .content_box{
-        background-color: var(--container_color);
-        height: 200px;
-        border: 1px solid var(--border);
-        &:nth-child(2){
+      .content_box {
+        &:nth-child(1) {
+          width: 60%;
+          height: calc(100vh - 70px);
+          overflow: auto;
+          padding: 10px;
+          border-bottom: none;
+          background-color: var(--container_color);
+          border-right: 1px solid var(--border);
+        }
+        &:nth-child(2) {
+          border: 1px solid var(--border);
           padding: 20px;
           height: 100%;
-          h2{
+          width: 40%;
+          margin: 20px;
+          background-color: var(--container_color);
+          h2 {
             display: flex;
             align-items: center;
             gap: 5px;
           }
         }
+      }
+    }
+  }
+  .task_content {
+    background-color: var(--background_color_2);
+    min-height: 100vh;
+    .page_header {
+      border-bottom: 1px solid var(--border);
+    }
+    .task_container {
+      max-width: 900px;
+      margin: 30px auto;
+      margin-bottom: 0;
+      ul {
+        &.grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          &.flex {
+            width: 100%;
+          }
+          li {
+            height: 100px;
+          }
+        }
+        li {
+          background-color: var(--todo_list_background_color);
+          padding: 10px;
+          border-radius: 2px;
+          box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.195);
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+      .category {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
       }
     }
   }
@@ -259,17 +314,8 @@ nav {
   justify-content: center;
   flex-direction: column;
   h1 {
-    font-size: 75px;
+    font-size: 55px;
     font-weight: 900;
-    span {
-      background-image: linear-gradient(
-        52deg,
-        rgb(28, 126, 214) 3%,
-        rgb(16, 152, 173) 97%
-      );
-      color: transparent;
-      background-clip: text;
-    }
     line-height: 1.1;
   }
   .service_container {
@@ -291,16 +337,9 @@ nav {
   margin: auto;
   min-height: calc(100vh - 60px);
   h1 {
-    font-size: 70px;
+    font-size: 55px;
     font-weight: 900;
-    background-image: linear-gradient(
-      52deg,
-      rgb(28, 126, 214) 3%,
-      rgb(16, 152, 173) 97%
-    );
-    color: transparent;
     margin-bottom: 20px;
-    background-clip: text;
     line-height: 1.1;
   }
   .img_container {
@@ -310,7 +349,7 @@ nav {
     }
     p {
       font-size: 20px;
-      color: rgb(84, 84, 84);
+      color: rgb(101, 101, 101);
     }
   }
 
@@ -322,20 +361,14 @@ nav {
     width: 100%;
     transform: translateY(-10px);
     font-size: 15px;
-    color: rgb(16, 152, 173);
+    color: rgb(28, 126, 214);
   }
   .more {
     font-size: 20px;
     margin-top: 20px;
-    color: rgb(84, 84, 84);
+    color: rgb(197, 197, 197);
     a {
-      background-image: linear-gradient(
-        52deg,
-        rgb(28, 126, 214) 3%,
-        rgb(16, 152, 173) 97%
-      );
-      color: transparent;
-      background-clip: text;
+      color: rgb(28, 126, 214);
     }
   }
 }

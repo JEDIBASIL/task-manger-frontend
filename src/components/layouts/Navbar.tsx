@@ -1,4 +1,6 @@
 import { GiAbstract081 } from "react-icons/gi"
+import { Link as A } from "react-router-dom"
+
 interface NavbarProps {
     logo?: boolean
 }
@@ -12,8 +14,8 @@ const Navbar: React.FC<NavbarProps> = ({ logo }) => {
                     !logo
                         ?
                         <div className="nav_btns">
-                            <a href="">Login</a>
-                            <a href=""><button>Get started</button></a>
+                            <A to="/sign-in">Login</A>
+                            <A to="/sign-up"><button>Get started</button></A>
                         </div>
                         :
                         <></>
