@@ -46,20 +46,35 @@ const SignIn: React.FC = () => {
             title: 'Failed',
             message: 'Incorrect email or password',
         })
-        if (state.error?.data.includes("verified")) showNotification({
-            title: 'Failed',
-            message: 'account not verified',
-        })
+        if (state.error?.data.includes("verified")) {
+            showNotification({
+                title: 'Failed',
+                message: 'account not verified',
+            })
+            requestHandler(
+                {
+                    method: "post",
+                    url: "http://localhost:8084/api/v1/user/resend-mail",
+                    data: { email: form?.values?.email }
+                },
+                setState
+            )
+            
+        }
         if (state.error?.data.includes("failed") || state.error?.data.includes("error")) showNotification({
             title: 'Error',
             message: 'an error occurred',
         })
-        if (state?.data?.status && state.data?.status.includes("success")) {
+        if (state?.data?.status && state.data?.message.includes("authenticated")) {
             showNotification({
                 title: 'Success',
                 message: 'Account verified',
             })
             navigate("/app");
+        }
+        if (state?.data?.status && state.data?.message.includes("sent")) {
+            console.log("sent")
+            navigate("/sent");
         }
     }, [state.data, state.error])
 
