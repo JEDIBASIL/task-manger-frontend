@@ -79,7 +79,7 @@ const SignUp: React.FC = () => {
                     <TextInput {...form.getInputProps('username')} mb={15} placeholder={"Your username"} size={"lg"} type={"text"} />
                     <TextInput {...form.getInputProps('email')} mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
                     <PasswordInput {...form.getInputProps('password')} mb={15} placeholder={"Password"} size={"lg"} />
-                    <Button loading={state.loading} type={"submit"} size={"lg"}>Create account</Button>
+                    <Button color={"violet"} fullWidth loading={state.loading} type={"submit"} size={"lg"}>Create account</Button>
                 </form>
                 <p className={"more"}><A to="/sign-in">Sign in</A> if you already have an account</p>
             </div>

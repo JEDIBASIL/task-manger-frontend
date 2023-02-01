@@ -1,4 +1,4 @@
-import { Menu, Button, Text, ActionIcon, Avatar, Tooltip } from '@mantine/core';
+import { Menu, Text, ActionIcon, Avatar, Tooltip, Badge } from '@mantine/core';
 import { IconSettings, IconMessageCircle, IconPhoto, IconSearch, IconArrowsLeftRight, IconTrash } from '@tabler/icons';
 import React from 'react';
 import { CiCircleMore } from 'react-icons/ci';
@@ -9,17 +9,21 @@ const ToDoList: React.FC = () => {
         <>
             <li>
                 <h3>🤾🏿‍♀️ Play</h3>
-                <Avatar.Group  spacing="sm">
+
+                <Avatar.Group spacing="sm">
                     <Tooltip label={"John"}>
-                    <Avatar size={"md"} src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80" radius="xl" />
+                        <Avatar size={"md"} src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80" radius="xl" />
                     </Tooltip>
                     <Avatar size={"md"} src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80" radius="xl" />
                     <Avatar size={"md"} src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80" radius="xl" />
                 </Avatar.Group>
+                <div className='todos_category'>
+                    <Badge radius={50} color={"orange"} variant={"light"} size="xs">Food</Badge>
+                </div>
                 <div>
                     <Menu shadow="md" width={200}>
                         <Menu.Target>
-                            <ActionIcon><CiCircleMore size={22} /></ActionIcon>
+                            <ActionIcon className='more'><CiCircleMore size={22} /></ActionIcon>
                         </Menu.Target>
 
                         <Menu.Dropdown>

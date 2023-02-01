@@ -17,7 +17,7 @@ const SideBar: React.FC = () => {
                 <ul >
                     <SidebarLink className={location.pathname !== "/app" ? "inactive" : "active"} icon={<RxHome size={30} />} name={"Home"} path={"/app"} />
                     <SidebarLink icon={<RxBell size={30} />} name={"Notification"} path={"/app/notification"} />
-                    <SidebarLink icon={<RxRocket size={30} />} name={"Task"} path={"/app/task"} />
+                    <SidebarLink icon={<RxRocket size={30} />} name={"Task"} path={"/app/tasks"} />
                     <div className="sidebar_recent_task">
                         <Accordion defaultValue="customization">
                             <Accordion.Item value="flexibility">

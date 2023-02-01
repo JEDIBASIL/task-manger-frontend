@@ -1,120 +1,99 @@
-import React, { useState } from 'react';
-import { PageHeader, ToDoList } from '../../components';
-import { CiGrid41, CiBoxList, CiGrid31, CiCirclePlus } from "react-icons/ci"
-import { ActionIcon, Button, Drawer, Flex, Grid, MultiSelect, Select, TextInput, Tooltip } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
+import { Badge, Button, Checkbox, Flex, Tabs, TextInput, Textarea } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { addTodoSchema } from '../../schema';
 import { useForm, zodResolver } from "@mantine/form";
+import { getAuthToken } from '../../utils/auth';
+import { requestHandler } from '../../api/useFetchApi';
+import ApiState from '../../interface/api.interface';
+import { RiSendPlane2Fill } from 'react-icons/ri';
 
 const Task: React.FC = () => {
     const [drawer, setDrawer] = useState<boolean>(false);
+    const [state, setState] = useState<ApiState>({
+        data: null,
+        loading: false,
+        error: null
+    });
     const form = useForm({
         validate: zodResolver(addTodoSchema),
         initialValues: {
             name: "",
-            starting: null,
+            starts: null,
             ends: null,
             people: []
         },
     });
 
     const handleSubmit = (task: any) => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${getAuthToken("rqwt")}`
+            }
+        }
         console.log(task)
+        requestHandler(
+            {
+                method: "post",
+                url: "http://localhost:8084/api/v1/task/add",
+                data: task,
+                headers: config,
+            },
+            setState
+        )
     }
+    useEffect(() => {
+        console.log(state)
+    }, [state])
     return (
         <>
-            <Drawer
-                opened={drawer}
-                title={<h1>🎯 New Task</h1>}
-                onClose={() => setDrawer(false)}
-                padding="xl"
-                size="xl"
-                position="right"
-                overlayOpacity={0}
-            >
-                <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-                    <Grid>
-                        <Grid.Col span={12}> <TextInput {...form.getInputProps('name')} name={"name"} size={"md"} icon={"⛳️"} placeholder={"Name"} />  </Grid.Col>
-                        <Grid.Col span={6}><DatePicker {...form.getInputProps('starts')} name={"starts"} icon={"🏁"} size={"md"} placeholder={"Starts"} /></Grid.Col>
-                        <Grid.Col span={6}><DatePicker {...form.getInputProps('ends')} name={"ends"} icon={"🛑"} size={"md"} placeholder={"Ends"} /></Grid.Col>
-                        <Grid.Col span={12}> <Select
-                            size={"md"}
-                            placeholder="Category"
-                            {...form.getInputProps('category')} name={"category"}
-                            data={[
-                                { value: 'react', label: 'React' },
-                                { value: 'ng', label: 'Angular' },
-                                { value: 'svelte', label: 'Svelte' },
-                                { value: 'vue', label: 'Vue' },
-                            ]}
-                        />
-                        </Grid.Col>
-                        <Grid.Col span={12}> <MultiSelect  {...form.getInputProps('people')} required={false} name={"people"} icon={"👫"} placeholder="People" searchable size={"md"} data={[
-                            { value: 'react', label: 'React' },
-                            { value: 'ng', label: 'Angular' },
-                            { value: 'svelte', label: 'Svelte' },
-                            { value: 'vue', label: 'Vue' },
-                            { value: 'riot', label: 'Riot' },
-                            { value: 'next', label: 'Next.js' },
-                            { value: 'blitz', label: 'Blitz.js' },
-
-                        ]} /> </Grid.Col>
-                        <Grid.Col span={12}><Button size={"md"} type={"submit"}>Add todos</Button></Grid.Col>
-                    </Grid>
-
-                </form>
-            </Drawer>
             <div className='task_content'>
-                <PageHeader emoji={"🚀"} name={"Task"} />
+                <div className="each_task">
+                    <h1>
+                        <Textarea autosize unstyled value={"🛍 Go shopping"} />
+                    </h1>
+                    <p className='sub_text'>
+                        <Textarea autosize unstyled value={"If shopping doesn't make you happy, then you're in the wrong shop. Too many people spend money they haven't earned, to buy things they don't want, to impress people they don't like. The odds of going to the store for a loaf of bread and coming out with only a loaf of bread are three billion to one."} />
+                    </p>
+                    <Tabs defaultValue="gallery" color={"gray"}>
+                        <Tabs.List>
+                            <Tabs.Tab value="gallery"><h3 className='tab_header'>People</h3></Tabs.Tab>
+                            <Tabs.Tab value="messages"><h3 className='tab_header'>Comments</h3></Tabs.Tab>
+                            <Tabs.Tab value="settings"><h3 className='tab_header'>Settings</h3></Tabs.Tab>
 
-                <div className='task_container'>
-                    <Flex mb={10} justify={"space-between"} align={"center"} className='task_filter'>
-                        <Flex align={"center"} gap={5}>
-                            <Tooltip label="new to-dos">
-                                <ActionIcon onClick={() => setDrawer(true)} color={"blue"} variant={"filled"}><CiCirclePlus size={22} /></ActionIcon>
-                            </Tooltip>
+                        </Tabs.List>
 
-                            <Select
-                                placeholder="Category"
-                                data={[
-                                    { value: 'react', label: 'React' },
-                                    { value: 'ng', label: 'Angular' },
-                                    { value: 'svelte', label: 'Svelte' },
-                                    { value: 'vue', label: 'Vue' },
-                                ]}
-                            />
-                            <Tooltip label="Tooltip">
-                                <ActionIcon variant={"default"}><CiGrid31 size={18} /></ActionIcon>
-                            </Tooltip>
-                        </Flex>
-                        <Flex align={"center"} gap={5}>
-                            <Tooltip label="Grid">
-                                <ActionIcon variant={"default"}><CiGrid41 size={18} /></ActionIcon>
-                            </Tooltip>
-                            <Tooltip label="List">
-                                <ActionIcon variant={"default"}><CiBoxList size={18} /></ActionIcon>
-                            </Tooltip>
-                        </Flex>
-                    </Flex>
-                    <ul className=''>
-                        <ToDoList />
-                    </ul>
-                    <div className='category'>
-                        <div>
-                            <Button mb={10} variant='light' fullWidth>Food</Button>
-                            <ul className='flex'>
-                              <ToDoList />
-                                <ToDoList />
-                            </ul>
-                        </div>
-                        <div>
-                            <Button mb={10} color={"teal"} variant='light' fullWidth>Activities</Button>
-                            <ul className='flex'>
-                              <ToDoList />
-                                <ToDoList />
-                            </ul>
-                        </div>
-                    </div>
+                        <Tabs.Panel value="gallery" pt="xs">
+                            <Button>Add people</Button>
+                            <div className='people_container'>
+                                <ul>
+                                    <Checkbox.Group
+                                        withAsterisk
+                                        spacing={5}
+                                    >
+                                        <li>
+                                            <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
+                                            <Badge>Badge</Badge>
+                                        </li>
+                                        <li>
+                                            <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
+                                        </li>
+                                    </Checkbox.Group>
+                                </ul>
+                            </div>
+                        </Tabs.Panel>
+
+                        <Tabs.Panel value="messages" pt="xs">
+                           <Flex justify={"space-between"} align={"center"}>
+                            <Textarea size={'md'} autosize placeholder='Write a comment'/>
+                            <Button color={"violet"}><RiSendPlane2Fill size={22} /></Button>
+                           </Flex>
+                        </Tabs.Panel>
+
+                        <Tabs.Panel value="settings" pt="xs">
+                            Settings tab content
+                        </Tabs.Panel>
+                    </Tabs>
                 </div>
             </div>
         </>

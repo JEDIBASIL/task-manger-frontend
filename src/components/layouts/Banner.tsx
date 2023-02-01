@@ -1,4 +1,4 @@
-import heroImg from "../../assets/img/Timeline-bro.svg"
+import heroImg from "../../assets/img/Rectangle.png"
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const Banner: React.FC = () => {

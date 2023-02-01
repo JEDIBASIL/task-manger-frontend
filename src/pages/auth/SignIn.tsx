@@ -7,6 +7,7 @@ import { showNotification } from "@mantine/notifications";
 import { useState, useEffect } from "react";
 import ApiState from "../../interface/api.interface";
 import { requestHandler } from "../../api/useFetchApi";
+import { setAuthToken } from "../../utils/auth";
 
 const SignIn: React.FC = () => {
     const navigate = useNavigate();
@@ -59,13 +60,15 @@ const SignIn: React.FC = () => {
                 },
                 setState
             )
-            
+
         }
         if (state.error?.data.includes("failed") || state.error?.data.includes("error")) showNotification({
             title: 'Error',
             message: 'an error occurred',
         })
         if (state?.data?.status && state.data?.message.includes("authenticated")) {
+            const setAuth = setAuthToken("rqwt", state.data?.data?.accessToken)
+            console.log(setAuth)
             showNotification({
                 title: 'Success',
                 message: 'Account verified',
@@ -86,9 +89,9 @@ const SignIn: React.FC = () => {
                     Back</h1>
                 <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                     <TextInput  {...form.getInputProps('email')} mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
-                    <PasswordInput  {...form.getInputProps('password')} mb={15} placeholder={"Password"} size={"lg"} />
+                    <PasswordInput  {...form.getInputProps('password')} placeholder={"Password"} size={"lg"} />
                     <div className='forgot_password_container'><A to="/forgot-password">Forgot password?</A></div>
-                    <Button loading={state.loading} type={"submit"} size={"lg"}>Sign in</Button>
+                    <Button color={"violet"} fullWidth loading={state.loading} type={"submit"} size={"lg"}>Sign in</Button>
                 </form>
                 <p className={"more"}><A to="/sign-up">Sign up</A> if you don't have an account</p>
             </div>

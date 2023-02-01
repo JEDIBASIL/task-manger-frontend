@@ -60,7 +60,7 @@ const ResetPassword: React.FC = ({ }) => {
                 <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
                     <PasswordInput  {...form.getInputProps('password')} placeholder={"New password"} size={"lg"} />
                     <div className='forgot_password_container'><A to="/sign-in">Login</A></div>
-                    <Button loading={state.loading} type={"submit"} size={"lg"} >Reset password</Button>
+                    <Button color={"violet"} fullWidth loading={state.loading} type={"submit"} size={"lg"} >Reset password</Button>
                 </form>
             </div>
         </>

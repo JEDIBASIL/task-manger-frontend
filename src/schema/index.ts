@@ -22,11 +22,23 @@ const signInSchema = z
 
 const addTodoSchema = z
     .object({
-        name: z.string().min(0,{ message: "Invalid email address" }),
+        name: z.string().min(1, { message: "Invalid email address" }),
         starts: z.date().min(new Date(), { message: "Task can't start beyond today" }),
         ends: z.date(),
-        people:z.array(z.string()).nullable(),
-        category:z.string().nullable(),
+        people: z.array(z.string()).nullable(),
+        category: z.string(),
     })
 
-export { signInSchema, signUpSchema, addTodoSchema as addTodoSchema }
+const forgotPasswordEmailSchema = z
+    .object({
+        email: z.string().email({ message: "Invalid email address" }),
+    })
+
+const restPasswordSchema = z
+    .object({
+        password: z
+            .string()
+            .min(8, { message: "Password should atleast be 8 letters" }),
+    })
+
+export { signInSchema, signUpSchema, addTodoSchema as addTodoSchema, forgotPasswordEmailSchema, restPasswordSchema }
