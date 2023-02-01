@@ -61,7 +61,7 @@ const SignUp: React.FC = () => {
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/user/create",
+                url: "/user/create",
                 data: newUser
             },
             setState

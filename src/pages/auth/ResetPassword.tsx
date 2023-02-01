@@ -35,7 +35,7 @@ const ResetPassword: React.FC = ({ }) => {
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/user/reset-password",
+                url: "/user/reset-password",
                 data: newPassword
             },
             setState

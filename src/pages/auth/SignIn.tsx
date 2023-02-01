@@ -33,7 +33,7 @@ const SignIn: React.FC = () => {
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/user/login",
+                url: "/user/login",
                 data: newUser
             },
             setState

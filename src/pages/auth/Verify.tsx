@@ -20,7 +20,7 @@ const Verify: React.FC = () => {
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/user/verify",
+                url: "/user/verify",
                 data: { token }
             },
             setState

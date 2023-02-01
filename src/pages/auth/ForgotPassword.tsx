@@ -32,7 +32,7 @@ const ForgotPassword: React.FC = ({ }) => {
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/user/password-mail",
+                url: "/user/password-mail",
                 data: userEmail
             },
             setState

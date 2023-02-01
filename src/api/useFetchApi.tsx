@@ -10,6 +10,10 @@ interface AxiosConfig {
     data?: object;
 }
 
+const instance = axios.create({
+    baseURL: 'http://localhost:8084/api/v1'
+  });
+
 
 export const useApi = ({ method, url, headers, data }: AxiosConfig) => {
     const [state, setState] = useState<ApiState>({
@@ -22,7 +26,7 @@ export const useApi = ({ method, url, headers, data }: AxiosConfig) => {
         const fetchData = async () => {
             setState({ data, loading: false, error: null });
             try {
-                const response = await axios[method](url, data, headers);
+                const response = await instance[method](url, data, headers);
                 const fetchedData = response.data;
                 setState({ data: fetchedData, loading: false, error: null });
             } catch (error: unknown) {
@@ -39,7 +43,7 @@ export const useApi = ({ method, url, headers, data }: AxiosConfig) => {
 
 export const requestHandler = ({ method, url, headers, data }: AxiosConfig, setResponse: React.Dispatch<React.SetStateAction<ApiState>>) => {
     setResponse({ data: {}, loading: true, error: null });
-    axios[method](url, data, headers)
+    instance[method](url, data, headers)
         .then(res => {
             const fetchedData = res.data;
             setResponse({ data: fetchedData, loading: false, error: null });
