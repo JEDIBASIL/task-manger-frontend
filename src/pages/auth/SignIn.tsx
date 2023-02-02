@@ -43,11 +43,11 @@ const SignIn: React.FC = () => {
 
     useEffect(() => {
         console.log(state)
-        if (state.error?.data.includes("incorrect")) showNotification({
+        if (state.error?.status === 404) showNotification({
             title: 'Failed',
             message: 'Incorrect email or password',
         })
-        if (state.error?.data.includes("verified")) {
+        if (state.error?.status === 403) {
             showNotification({
                 title: 'Failed',
                 message: 'account not verified',
@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
             )
 
         }
-        if (state.error?.data.includes("failed") || state.error?.data.includes("error")) showNotification({
+        if (state.error?.status === 500) showNotification({
             title: 'Error',
             message: 'an error occurred',
         })

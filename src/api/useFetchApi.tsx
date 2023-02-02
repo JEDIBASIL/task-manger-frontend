@@ -34,9 +34,12 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
                 const response = await instance[method](url, data);
                 const fetchedData = response.data;
                 setState({ data: fetchedData, loading: false, error: null });
+                console.log(state)
             } catch (error: unknown) {
-                if (error instanceof Error)
-                    setState({ data: null, loading: false, error });
+                if (error instanceof AxiosError)
+                setState({ data: null, loading: false, error: error?.response });
+                                console.log(state)
+
             }
         };
 
