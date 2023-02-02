@@ -34,12 +34,10 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
                 const response = await instance[method](url, data);
                 const fetchedData = response.data;
                 setState({ data: fetchedData, loading: false, error: null });
-                console.log(state)
             } catch (error: unknown) {
                 if (error instanceof AxiosError)
                 setState({ data: null, loading: false, error: error?.response });
-                                console.log(state)
-
+                console.log(error)
             }
         };
 
@@ -51,15 +49,14 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
 
 export const requestHandler = ({ method, url, headers, data }: AxiosConfig, setResponse: React.Dispatch<React.SetStateAction<ApiState>>) => {
     setResponse({ data: {}, loading: true, error: null });
-    console.log(data)
     instance[method](url, data, headers)
         .then(res => {
             const fetchedData = res.data;
             setResponse({ data: fetchedData, loading: false, error: null });
-            console.log(res.data)
         })
-        .catch(e => {
-            if (e instanceof AxiosError)
-                setResponse({ data: null, loading: false, error: e?.response });
+        .catch(error => {
+            if (error instanceof AxiosError)
+                setResponse({ data: null, loading: false, error: error?.response });
+                console.log(error)
         })
 }
