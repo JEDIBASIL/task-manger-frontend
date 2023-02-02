@@ -35,11 +35,11 @@ const Verify: React.FC = () => {
                 message: 'account already verified',
             })
         }
-        if (state.error?.data.includes("invalid")) showNotification({
+        if (state.error?.data?.message.includes("invalid")) showNotification({
             title: 'Failed',
             message: 'invalid token',
         })
-        if (state.error?.data.includes("failed")
+        if (state.error?.data?.message.includes("failed")
             || state.error?.data.includes("error")
             || state.error?.data.includes("jwt")
         ) showNotification({

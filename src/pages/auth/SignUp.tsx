@@ -30,15 +30,15 @@ const SignUp: React.FC = () => {
 
     useEffect(() => {
         console.log(state)
-        if (state.error?.data.includes("username")) showNotification({
+        if (state.error?.data?.message.includes("username")) showNotification({
             title: 'Failed',
             message: 'Username taken',
         })
-        if (state.error?.data.includes("email")) showNotification({
+        if (state.error?.data?.message.includes("email")) showNotification({
             title: 'Failed',
             message: 'Email taken',
         })
-        if (state.error?.data.includes("failed") || state.error?.data.includes("error")) showNotification({
+        if (state.error?.status === 404) showNotification({
             title: 'Error',
             message: 'an error occurred',
         })

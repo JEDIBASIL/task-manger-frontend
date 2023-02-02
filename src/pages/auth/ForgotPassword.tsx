@@ -41,7 +41,7 @@ const ForgotPassword: React.FC = ({ }) => {
     }
     useEffect(() => {
         console.log(state)
-        if (state.error?.data.includes("mail")) showNotification({
+        if (state.error?.data?.message.includes("mail")) showNotification({
             title: 'Failed',
             message: 'an error occurred',
         })
