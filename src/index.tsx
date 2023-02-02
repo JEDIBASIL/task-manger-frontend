@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import "./assets/stylesheets/style.css"
 import { BrowserRouter } from "react-router-dom"
 import { NotificationsProvider } from '@mantine/notifications';
+import { AppContextProvider } from './context/AppContex';
 
 
 const root = ReactDOM.createRoot(
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <NotificationsProvider>
-      <App />
-      </NotificationsProvider>
+      <AppContextProvider>
+        <NotificationsProvider>
+          <App />
+        </NotificationsProvider>
+      </AppContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

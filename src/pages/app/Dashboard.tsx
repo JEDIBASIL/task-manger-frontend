@@ -1,9 +1,11 @@
 import { PageHeader } from "../../components";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Calendar } from '@mantine/dates';
-import { Badge, Button, Drawer, Tabs } from "@mantine/core";
+import { Badge, Tabs } from "@mantine/core";
+import AppContext, { AppContextControls } from "../../context/AppContex";
 const Dashboard: React.FC = () => {
     const [value, setValue] = useState<Date | null>(new Date());
+    const {setControls,controls} = useContext(AppContext)
 
     return (
         <>
@@ -53,8 +55,7 @@ const Dashboard: React.FC = () => {
                             value={value}
                             onChange={(value: Date) => {
                                 setValue(value)
-                                // setDrawer(true)
-                                console.log(value.toLocaleDateString())
+                                setControls({...controls, calendarDrawer:true,calendarHeader:value} as AppContextControls)
                             }}
                             fullWidth
                             size="md"
@@ -84,3 +85,6 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+
+

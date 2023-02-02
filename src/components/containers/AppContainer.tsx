@@ -1,16 +1,23 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../layouts/SideBar";
-import { MantineProvider } from "@mantine/core";
+import { Button, MantineProvider } from "@mantine/core";
 import CalendarDrawer from "../layouts/CalendarDrawer";
+import AddTaskDrawer from "../layouts/AddTaskDrawer";
+import AppContext from "../../context/AppContex";
+import { useContext, useEffect } from "react";
+import AddTaskBtn from "../layouts/AddTaskBtn";
 
 
 const AppContainer: React.FC = () => {
+    const { controls } = useContext(AppContext)
     return (
         <>
-            <MantineProvider theme={{ colorScheme: 'light' }} withGlobalStyles withNormalizeCSS>
-                <div data-theme="light" className="app_container">
+            <MantineProvider theme={{ colorScheme: controls?.theme }} withGlobalStyles withNormalizeCSS>
+                <div data-theme={controls?.theme} className="app_container">
                     <SideBar />
-                    <CalendarDrawer  />
+                    <CalendarDrawer />
+                    <AddTaskDrawer />
+                    <AddTaskBtn />
                     <div style={{ width: "100%" }}>
                         <Outlet />
                     </div>
