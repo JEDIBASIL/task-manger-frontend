@@ -12,7 +12,7 @@
 :root {
   --sidebar_border: rgb(233, 236, 239);
   --sidebar_color: rgb(41, 41, 41);
-  --sidebar_active: rgb(121,80,242);
+  --sidebar_active: rgb(121, 80, 242);
   --sidebar_hover: ghostwhite;
   --sidebar_background_color: white;
   --sidebar_logo_color: rgb(43, 43, 43);
@@ -31,11 +31,11 @@
   --border: rgb(233, 236, 239);
   --color: rgb(53, 53, 53);
   --lighter_color: gray;
-  --todo_border:rgb(233, 236, 239);
+  --todo_border: rgb(233, 236, 239);
 }
 
 [data-theme="dark"] {
-  --sidebar_border: rgb(35, 37, 41);
+  --sidebar_border: rgb(55, 58, 64);
   --sidebar_color: rgb(245, 245, 245);
   // --background_color:  rgb(17, 18, 20);
   --background_color: rgb(25, 26, 30);
@@ -49,7 +49,7 @@
   --color: rgb(230, 230, 230);
   --lighter_color: rgb(206, 206, 206);
   --todo_list_background_color: rgb(33, 34, 40);
-  --todo_border:rgb(54,57,63);
+  --todo_border: rgb(54, 57, 63);
 }
 
 body {
@@ -82,29 +82,29 @@ body {
   }
   .text {
     h1 {
-      font-size: 55px;
+      font-size: 45px;
       font-weight: 900;
       color: rgb(50, 50, 50);
       line-height: 1.1;
     }
     p {
-      font-size: 22px;
+      font-size: 18px;
       margin: 10px 0px;
       max-width: 500px;
       color: rgb(101, 101, 101) !important;
     }
     button {
-      background-color: rgb(121,80,242);
+      background-color: rgb(121, 80, 242);
       white-space: nowrap;
       color: white;
       border: none;
-      padding: 15px;
+      padding: 12px 15px;
       font-size: 18px;
       border-radius: 5px;
     }
   }
   img {
-    width: 650px;
+    width: 600px;
   }
 }
 
@@ -120,6 +120,10 @@ nav {
     font-size: 30px;
     font-weight: 600;
     gap: 5px;
+    color: rgb(121, 80, 242);
+  }
+  .burger_container {
+    display: none;
   }
   .nav_btns {
     display: flex;
@@ -135,7 +139,7 @@ nav {
           border-radius: 5px;
           font-size: 18px;
           color: white;
-          background-color: rgb(121,80,242);
+          background-color: rgb(121, 80, 242);
         }
       }
     }
@@ -150,18 +154,53 @@ nav {
   width: 300px;
   min-width: 300px;
   position: sticky;
+  &.resize {
+    position: fixed;
+    max-width: 250px;
+    width: 250px;
+    height: 80%;
+    top: 10%;
+    left: 15px;
+    border: 1px solid var(--sidebar_border);
+    // transform: translateX(-100%);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.243);
+    border-radius: 5px;
+    z-index: 10;
+  }
+  &.mobile {
+    height: calc(100vh - 70px);
+    width: 100%;
+    min-width: 100%;
+    border: none;
+    display: block !important;
+  }
   top: 0;
   left: 0;
+  .navbar_bottom {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    h4 {
+      padding-left: 15px;
+    }
+  }
+  .sidebar_top {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .logo {
     display: flex;
     align-items: center;
     font-size: 25px;
     font-weight: 600;
     line-height: 1;
+    padding: 0px 10px;
     gap: 5px;
   }
   ul {
-    margin-top: 30px;
+    margin-top: 10px;
   }
   li {
     padding: 0px 10px;
@@ -178,7 +217,8 @@ nav {
       }
       &.active:not(.inactive) {
         background-color: var(--sidebar_active) !important;
-        span,svg{
+        span,
+        svg {
           color: white !important;
         }
       }
@@ -210,6 +250,13 @@ nav {
   min-height: 100vh;
   display: flex;
   color: var(--color);
+  .add_task_btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.263);
+    border-radius: 50px;
+  }
   .tab_header {
     font-weight: 500;
   }
@@ -218,10 +265,13 @@ nav {
     padding: 0px 30px;
     display: flex;
     align-items: center;
-    height: 70px;
+    height: 60px;
     background-color: var(--container_color);
     justify-content: space-between;
     border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 5;
     h2 {
       font-weight: 800;
       font-size: 28px;
@@ -341,6 +391,8 @@ nav {
           align-items: center;
           justify-content: space-between;
           position: relative;
+          h3{}
+          font-size: 15px;
         }
       }
       .category {
@@ -408,7 +460,7 @@ nav {
   justify-content: center;
   flex-direction: column;
   h1 {
-    font-size: 55px;
+    font-size: 50px;
     font-weight: 900;
     line-height: 1.1;
   }
@@ -431,7 +483,7 @@ nav {
   margin: auto;
   min-height: calc(100vh - 60px);
   h1 {
-    font-size: 45px;
+    font-size: 50px;
     font-weight: 900;
     margin-bottom: 20px;
     line-height: 1.1;
@@ -455,14 +507,14 @@ nav {
     width: 100%;
     transform: translateY(-3px);
     font-size: 15px;
-    color: rgb(121,80,242);
+    color: rgb(121, 80, 242);
   }
   .more {
     font-size: 20px;
     margin-top: 20px;
     color: rgb(197, 197, 197);
     a {
-      color: rgb(121,80,242);
+      color: rgb(121, 80, 242);
     }
   }
 }
@@ -486,6 +538,16 @@ nav {
   .sidebar {
     display: none;
   }
+  .banner {
+    img {
+      width: 450px;
+    }
+    .text {
+      p {
+        padding: 0px 15px;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 999px) {
@@ -506,6 +568,40 @@ nav {
       padding: 0px 10px;
       .task_container {
         margin: 20px auto;
+      }
+    }
+  }
+
+  .banner {
+    flex-direction: column;
+    .text {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .baner_form_container {
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+    .nav_btns {
+      display: none;
+    }
+    .burger_container {
+      display: inline;
+    }
+  }
+  .banner {
+    img {
+      width: 100%;
+    }
+    .baner_form_container {
+      width: 100%;
+      padding: 0px 20px;
+      button {
+        width: 100%;
       }
     }
   }

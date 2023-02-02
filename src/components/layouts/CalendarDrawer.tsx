@@ -1,19 +1,21 @@
 import { Drawer, Button } from '@mantine/core';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import AppContext, { AppContextControls } from '../../context/AppContext';
+import { dateConverter } from '../../utils/date';
 
 interface CalendarDrawerProps {
 
 }
 
 const CalendarDrawer: React.FC<CalendarDrawerProps> = ({ }) => {
-    const [drawer, setDrawer] = useState<boolean>(true);
+    const {setControls,controls} = useContext(AppContext)
 
     return (
         <>
             <Drawer
-                opened={drawer}
-                title="Register"
-                onClose={() => setDrawer(false)}
+                opened={controls?.calendarDrawer as boolean}
+                title={<h1>{"⏰ "+ dateConverter(controls?.calendarHeader)}</h1>}
+                onClose={() => setControls({...controls,calendarDrawer:false} as AppContextControls)}
                 padding="xl"
                 size="xl"
                 position="right"

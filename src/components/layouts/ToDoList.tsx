@@ -1,14 +1,71 @@
 import { Menu, Text, ActionIcon, Avatar, Tooltip, Badge } from '@mantine/core';
-import { IconSettings, IconMessageCircle, IconPhoto, IconSearch, IconArrowsLeftRight, IconTrash } from '@tabler/icons';
-import React from 'react';
+import { IconSettings, IconMessageCircle, IconPhoto, IconSearch, IconArrowsLeftRight, IconTrash, IconEdit } from '@tabler/icons';
+import { error } from 'console';
+import React, { useEffect, useState } from 'react';
 import { CiCircleMore } from 'react-icons/ci';
+import { Link } from 'react-router-dom';
+import { requestHandler } from '../../api/useFetchApi';
+import ApiState from '../../interface/api.interface';
+import { showNotification } from '@mantine/notifications';
+
+interface ToDoListProps {
+    name: string
+    id: string
+    category: string
+}
+
+const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
+
+    const [state, setState] = useState<ApiState>({
+        data: null,
+        loading: false,
+        error: null
+    });
+
+    useEffect(() => {
+        console.log(state)
+        if (state.data?.status === "success") {
+            showNotification({
+                title: "Successful",
+                message: "task deleted"
+            })
+        }
+
+        if (state.error?.status === 500) {
+            showNotification({
+                title: "Failed",
+                message: "an error occurred",
+                color: "red"
+            })
+        }
+
+        if (state.error?.status === 404) {
+            showNotification({
+                title: "Failed",
+                message: "task not found",
+                color: "red"
+            })
+        }
+        
+
+    }, [state])
+
+    const deleteTask = (id: string) => {
+        requestHandler(
+            {
+                method: "delete",
+                url: "/task",
+                data: { id }
+            },
+            setState
+        )
+    }
 
 
-const ToDoList: React.FC = () => {
     return (
         <>
             <li>
-                <h3>🤾🏿‍♀️ Play</h3>
+                <Link to={`/app/task/${id}`}><h3>{name}</h3></Link>
 
                 <Avatar.Group spacing="sm">
                     <Tooltip label={"John"}>
@@ -18,7 +75,7 @@ const ToDoList: React.FC = () => {
                     <Avatar size={"md"} src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80" radius="xl" />
                 </Avatar.Group>
                 <div className='todos_category'>
-                    <Badge radius={50} color={"orange"} variant={"light"} size="xs">Food</Badge>
+                    <Badge radius={50} color={"orange"} variant={"light"} size="xs">{category}</Badge>
                 </div>
                 <div>
                     <Menu shadow="md" width={200}>
@@ -27,22 +84,17 @@ const ToDoList: React.FC = () => {
                         </Menu.Target>
 
                         <Menu.Dropdown>
-                            <Menu.Label>Application</Menu.Label>
-                            <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
-                            <Menu.Item icon={<IconMessageCircle size={14} />}>Messages</Menu.Item>
-                            <Menu.Item icon={<IconPhoto size={14} />}>Gallery</Menu.Item>
-                            <Menu.Item
-                                icon={<IconSearch size={14} />}
-                                rightSection={<><Text size="xs" color="dimmed">⌘K</Text></>}
-                            >
-                                Search
-                            </Menu.Item>
-
+                            <Menu.Label>Edit</Menu.Label>
+                            <Link to={`/app/task/${id}`}>
+                                <Menu.Item icon={<IconEdit size={14} />}>
+                                    Edit task
+                                </Menu.Item>
+                            </Link>
                             <Menu.Divider />
-
                             <Menu.Label>Danger zone</Menu.Label>
-                            <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
-                            <Menu.Item color="red" icon={<IconTrash size={14} />}>Delete my account</Menu.Item>
+                            <Menu.Item onClick={()=>{
+                                console.log(id)
+                                deleteTask(id)}} color="red" icon={<IconTrash size={14} />}>Delete task</Menu.Item>
                         </Menu.Dropdown>
                     </Menu>
                 </div>

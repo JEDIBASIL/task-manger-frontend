@@ -26,18 +26,12 @@ const Task: React.FC = () => {
     });
 
     const handleSubmit = (task: any) => {
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${getAuthToken("rqwt")}`
-            }
-        }
         console.log(task)
         requestHandler(
             {
                 method: "post",
-                url: "http://localhost:8084/api/v1/task/add",
+                url: "http://localhost:8084/api/v1/task",
                 data: task,
-                headers: config,
             },
             setState
         )

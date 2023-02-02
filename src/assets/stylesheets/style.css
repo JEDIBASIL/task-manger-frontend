@@ -12,7 +12,7 @@
 :root {
   --sidebar_border: rgb(233, 236, 239);
   --sidebar_color: rgb(41, 41, 41);
-  --sidebar_active: rgb(121,80,242);
+  --sidebar_active: rgb(121, 80, 242);
   --sidebar_hover: ghostwhite;
   --sidebar_background_color: white;
   --sidebar_logo_color: rgb(43, 43, 43);
@@ -23,11 +23,11 @@
   --border: rgb(233, 236, 239);
   --color: rgb(53, 53, 53);
   --lighter_color: gray;
-  --todo_border:rgb(233, 236, 239);
+  --todo_border: rgb(233, 236, 239);
 }
 
 [data-theme=dark] {
-  --sidebar_border: rgb(35, 37, 41);
+  --sidebar_border: rgb(55, 58, 64);
   --sidebar_color: rgb(245, 245, 245);
   --background_color: rgb(25, 26, 30);
   --container_color: rgb(25, 26, 30);
@@ -38,7 +38,7 @@
   --color: rgb(230, 230, 230);
   --lighter_color: rgb(206, 206, 206);
   --todo_list_background_color: rgb(33, 34, 40);
-  --todo_border:rgb(54,57,63);
+  --todo_border: rgb(54, 57, 63);
 }
 
 body {
@@ -70,13 +70,13 @@ body {
   display: none;
 }
 .banner .text h1 {
-  font-size: 55px;
+  font-size: 45px;
   font-weight: 900;
   color: rgb(50, 50, 50);
   line-height: 1.1;
 }
 .banner .text p {
-  font-size: 22px;
+  font-size: 18px;
   margin: 10px 0px;
   max-width: 500px;
   color: rgb(101, 101, 101) !important;
@@ -86,12 +86,12 @@ body {
   white-space: nowrap;
   color: white;
   border: none;
-  padding: 15px;
+  padding: 12px 15px;
   font-size: 18px;
   border-radius: 5px;
 }
 .banner img {
-  width: 650px;
+  width: 600px;
 }
 
 nav {
@@ -107,6 +107,10 @@ nav .logo {
   font-size: 30px;
   font-weight: 600;
   gap: 5px;
+  color: rgb(121, 80, 242);
+}
+nav .burger_container {
+  display: none;
 }
 nav .nav_btns {
   display: flex;
@@ -138,16 +142,50 @@ nav .nav_btns a:nth-child(2) button {
   top: 0;
   left: 0;
 }
+.sidebar.resize {
+  position: fixed;
+  max-width: 250px;
+  width: 250px;
+  height: 80%;
+  top: 10%;
+  left: 15px;
+  border: 1px solid var(--sidebar_border);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.243);
+  border-radius: 5px;
+  z-index: 10;
+}
+.sidebar.mobile {
+  height: calc(100vh - 70px);
+  width: 100%;
+  min-width: 100%;
+  border: none;
+  display: block !important;
+}
+.sidebar .navbar_bottom {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+.sidebar .navbar_bottom h4 {
+  padding-left: 15px;
+}
+.sidebar .sidebar_top {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .sidebar .logo {
   display: flex;
   align-items: center;
   font-size: 25px;
   font-weight: 600;
   line-height: 1;
+  padding: 0px 10px;
   gap: 5px;
 }
 .sidebar ul {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .sidebar li {
   padding: 0px 10px;
@@ -167,7 +205,8 @@ nav .nav_btns a:nth-child(2) button {
 .sidebar li a.active:not(.inactive) {
   background-color: var(--sidebar_active) !important;
 }
-.sidebar li a.active:not(.inactive) span, .sidebar li a.active:not(.inactive) svg {
+.sidebar li a.active:not(.inactive) span,
+.sidebar li a.active:not(.inactive) svg {
   color: white !important;
 }
 .sidebar li a svg {
@@ -196,6 +235,13 @@ nav .nav_btns a:nth-child(2) button {
   display: flex;
   color: var(--color);
 }
+.app_container .add_task_btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.263);
+  border-radius: 50px;
+}
 .app_container .tab_header {
   font-weight: 500;
 }
@@ -203,10 +249,14 @@ nav .nav_btns a:nth-child(2) button {
   padding: 0px 30px;
   display: flex;
   align-items: center;
-  height: 70px;
+  height: 60px;
   background-color: var(--container_color);
   justify-content: space-between;
   border-bottom: 1px solid var(--border);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 .app_container .page_header h2 {
   font-weight: 800;
@@ -324,6 +374,7 @@ nav .nav_btns a:nth-child(2) button {
   align-items: center;
   justify-content: space-between;
   position: relative;
+  font-size: 15px;
 }
 .app_container .task_content .task_container .category {
   display: grid;
@@ -387,7 +438,7 @@ nav .nav_btns a:nth-child(2) button {
   flex-direction: column;
 }
 .services h1 {
-  font-size: 55px;
+  font-size: 50px;
   font-weight: 900;
   line-height: 1.1;
 }
@@ -407,7 +458,7 @@ nav .nav_btns a:nth-child(2) button {
   min-height: calc(100vh - 60px);
 }
 .form_content h1 {
-  font-size: 45px;
+  font-size: 50px;
   font-weight: 900;
   margin-bottom: 20px;
   line-height: 1.1;
@@ -458,6 +509,12 @@ nav .nav_btns a:nth-child(2) button {
   .sidebar {
     display: none;
   }
+  .banner img {
+    width: 450px;
+  }
+  .banner .text p {
+    padding: 0px 15px;
+  }
 }
 @media screen and (max-width: 999px) {
   .app_container .home_content .content .content_box:nth-child(1) {
@@ -471,5 +528,33 @@ nav .nav_btns a:nth-child(2) button {
   }
   .app_container .task_content .task_container {
     margin: 20px auto;
+  }
+  .banner {
+    flex-direction: column;
+  }
+  .banner .text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .banner .baner_form_container {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  nav .nav_btns {
+    display: none;
+  }
+  nav .burger_container {
+    display: inline;
+  }
+  .banner img {
+    width: 100%;
+  }
+  .banner .baner_form_container {
+    width: 100%;
+    padding: 0px 20px;
+  }
+  .banner .baner_form_container button {
+    width: 100%;
   }
 }/*# sourceMappingURL=style.css.map */
