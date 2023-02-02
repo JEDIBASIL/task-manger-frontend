@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import "./assets/stylesheets/style.css"
 import { BrowserRouter } from "react-router-dom"
 import { NotificationsProvider } from '@mantine/notifications';
-import { AppContextProvider } from './context/AppContex';
+import { AppContextProvider } from './context/AppContext';
 
 
 const root = ReactDOM.createRoot(

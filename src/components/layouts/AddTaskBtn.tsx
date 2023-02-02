@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 import React, { useContext } from 'react';
-import AppContext, { AppContextControls } from '../../context/AppContex';
+import AppContext, { AppContextControls } from '../../context/AppContext';
 
 interface AddTaskBtnProps {
 }

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CiGrid41, CiBoxList, CiGrid31, CiCirclePlus } from "react-icons/ci"
 import { ActionIcon, Flex, Loader, Select, Tooltip } from '@mantine/core';
 import { useApi } from '../../api/useFetchApi';
-import AppContext, { AppContextControls } from '../../context/AppContex';
+import AppContext, { AppContextControls } from '../../context/AppContext';
 
 interface TaskHeaderProps {
 }

@@ -2,7 +2,7 @@ import { Burger, Drawer } from "@mantine/core";
 import { useContext, useState } from "react";
 import { GiAbstract081 } from "react-icons/gi";
 import SideBar from "./SideBar";
-import AppContext from "../../context/AppContex";
+import AppContext from "../../context/AppContext";
 
 interface PageHeader {
     name: string;

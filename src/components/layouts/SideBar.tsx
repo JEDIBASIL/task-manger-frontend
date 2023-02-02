@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { RxBell, RxHome, RxRocket, RxMoon, RxSun, RxGear, RxExit, RxViewVertical } from "react-icons/rx"
 import { Accordion, ActionIcon, Divider, Flex, Text } from "@mantine/core";
 import { useContext } from "react";
-import AppContext, { AppContextControls } from "../../context/AppContex";
+import AppContext, { AppContextControls } from "../../context/AppContext";
 
 interface SideBarProps {
     className?: string

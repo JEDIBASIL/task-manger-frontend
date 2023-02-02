@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useApi } from '../../api/useFetchApi';
 import { PageHeader, TaskHeader, ToDoList } from '../../components';
 import { Center, Loader } from '@mantine/core';
-import AppContext from '../../context/AppContex';
+import AppContext from '../../context/AppContext';
 
 
 const Tasks: React.FC = () => {

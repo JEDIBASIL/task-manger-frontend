@@ -1,6 +1,6 @@
 import { Drawer, Button } from '@mantine/core';
 import React, { useContext, useState } from 'react';
-import AppContext, { AppContextControls } from '../../context/AppContex';
+import AppContext, { AppContextControls } from '../../context/AppContext';
 import { dateConverter } from '../../utils/date';
 
 interface CalendarDrawerProps {

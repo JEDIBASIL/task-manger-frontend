@@ -5,7 +5,7 @@ import { useForm, zodResolver } from "@mantine/form";
 import { requestHandler, useApi } from '../../api/useFetchApi';
 import ApiState from '../../interface/api.interface';
 import { addTodoSchema } from '../../schema';
-import AppContext, { AppContextControls } from '../../context/AppContex';
+import AppContext, { AppContextControls } from '../../context/AppContext';
 
 
 interface AddTaskDrawerProps {

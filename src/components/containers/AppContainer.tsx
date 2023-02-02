@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom";
 import SideBar from "../layouts/SideBar";
 import { Button, MantineProvider } from "@mantine/core";
 import CalendarDrawer from "../layouts/CalendarDrawer";
-import AddTaskDrawer from "../layouts/AddTaskDrawer";
-import AppContext from "../../context/AppContex";
 import { useContext, useEffect } from "react";
 import AddTaskBtn from "../layouts/AddTaskBtn";
+import AddTaskDrawer from "../layouts/AddTaskDrawer";
+import AppContext from "../../context/AppContext";
 
 
 const AppContainer: React.FC = () => {

@@ -2,7 +2,7 @@ import { PageHeader } from "../../components";
 import { useContext, useState } from 'react';
 import { Calendar } from '@mantine/dates';
 import { Badge, Tabs } from "@mantine/core";
-import AppContext, { AppContextControls } from "../../context/AppContex";
+import AppContext, { AppContextControls } from "../../context/AppContext";
 const Dashboard: React.FC = () => {
     const [value, setValue] = useState<Date | null>(new Date());
     const {setControls,controls} = useContext(AppContext)
