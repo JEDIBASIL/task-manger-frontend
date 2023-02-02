@@ -38,7 +38,7 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
             } catch (error: unknown) {
                 if (error instanceof AxiosError)
                 setState({ data: null, loading: false, error: error?.response });
-                console.log(state)
+                                console.log(state)
 
             }
         };
