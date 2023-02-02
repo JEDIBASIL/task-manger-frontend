@@ -46,8 +46,6 @@ const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
                 color: "red"
             })
         }
-        
-
     }, [state])
 
     const deleteTask = (id: string) => {

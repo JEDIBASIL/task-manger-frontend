@@ -391,8 +391,10 @@ nav {
           align-items: center;
           justify-content: space-between;
           position: relative;
-          h3{}
-          font-size: 15px;
+          h3{
+            font-size: 15px;
+          }
+          
         }
       }
       .category {
@@ -483,7 +485,7 @@ nav {
   margin: auto;
   min-height: calc(100vh - 60px);
   h1 {
-    font-size: 50px;
+    font-size: 35px;
     font-weight: 900;
     margin-bottom: 20px;
     line-height: 1.1;

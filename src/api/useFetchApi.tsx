@@ -13,7 +13,7 @@ interface AxiosConfig {
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8084/api/v1',
+    baseURL: "http://localhost:8084/api/v1",
     headers: {
         "Authorization": `Bearer ${getAuthToken("rqwt")}`
     }

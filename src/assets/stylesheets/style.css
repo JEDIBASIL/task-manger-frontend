@@ -374,6 +374,8 @@ nav .nav_btns a:nth-child(2) button {
   align-items: center;
   justify-content: space-between;
   position: relative;
+}
+.app_container .task_content .task_container ul li h3 {
   font-size: 15px;
 }
 .app_container .task_content .task_container .category {
@@ -458,7 +460,7 @@ nav .nav_btns a:nth-child(2) button {
   min-height: calc(100vh - 60px);
 }
 .form_content h1 {
-  font-size: 50px;
+  font-size: 35px;
   font-weight: 900;
   margin-bottom: 20px;
   line-height: 1.1;
