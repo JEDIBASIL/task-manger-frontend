@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImg from "../../assets/img/Rectangle.png"
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -12,7 +13,9 @@ const Banner: React.FC = () => {
                     <h1>Make <span>Everyday</span> </h1>
                     <h1><span>Count</span></h1>
                     <p>Teddy is your daily app to track, manager and helps you achieve your goals</p>
-                    <div className="baner_form_container"><input placeholder="Enter email address" type="email" /> <button>Get started for free</button></div>
+                    <div className="baner_form_container"><input placeholder="Enter email address" type="email" /> 
+                    <Link to={"/sign-up"}><button>Get started for free</button></Link>
+                    </div>
                 </div>
                 <motion.div
                    
