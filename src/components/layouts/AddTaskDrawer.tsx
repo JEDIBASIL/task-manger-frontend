@@ -146,7 +146,7 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
 
                         ]} /> </Grid.Col>
                         <Grid.Col span={12}>
-                            <Textarea r {...form.getInputProps('description')} icon={"📝"} size={"md"} placeholder={"Description"} />
+                            <Textarea {...form.getInputProps('description')} icon={"📝"} size={"md"} placeholder={"Description"} />
                         </Grid.Col>
                         <Grid.Col span={12}><Button color={"violet"} loading={state.loading} size={"md"} type={"submit"}>Add todos</Button></Grid.Col>
                     </Grid>
