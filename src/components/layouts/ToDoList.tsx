@@ -1,12 +1,13 @@
 import { Menu, Text, ActionIcon, Avatar, Tooltip, Badge } from '@mantine/core';
 import { IconSettings, IconMessageCircle, IconPhoto, IconSearch, IconArrowsLeftRight, IconTrash, IconEdit } from '@tabler/icons';
 import { error } from 'console';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CiCircleMore } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { requestHandler } from '../../api/useFetchApi';
 import ApiState from '../../interface/api.interface';
 import { showNotification } from '@mantine/notifications';
+import AppContext, { AppContextControls } from '../../context/AppContext';
 
 interface ToDoListProps {
     name: string
@@ -28,7 +29,7 @@ const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
                 title: "Successful",
                 message: "task deleted"
             })
-            setControls({ ...controls, monitor: 0 })
+            setControls({ ...controls, monitor: 3 } as AppContextControls)
         }
 
         if (state.error?.status === 500) {

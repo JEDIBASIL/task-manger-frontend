@@ -23,6 +23,7 @@ const signInSchema = z
 const addTodoSchema = z
     .object({
         name: z.string().min(1, { message: "Invalid email address" }),
+        description: z.string().min(0, { message: "Invalid email address" }),
         starts: z.date().min(new Date(), { message: "Task can't start beyond today" }),
         ends: z.date(),
         people: z.array(z.string()).nullable(),

@@ -14,6 +14,7 @@ interface AddTaskDrawerProps {
 
 const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
     const { setControls, controls } = useContext(AppContext)
+    
     const [state, setState] = useState<ApiState>({
         data: null,
         loading: false,
@@ -35,6 +36,7 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
     }, [data, error, loading])
     useEffect(() => {
         if (state.data?.status === "success") {
+            setControls({ ...controls, monitor: 7 } as AppContextControls)
             showNotification({
                 title: "Successful",
                 message: "task added"
@@ -61,6 +63,7 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
         validate: zodResolver(addTodoSchema),
         initialValues: {
             name: "",
+            description: "",
             starts: null,
             ends: null,
             people: []
@@ -143,7 +146,7 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
 
                         ]} /> </Grid.Col>
                         <Grid.Col span={12}>
-                            <Textarea icon={"📝"} size={"md"} placeholder={"Description"} />
+                            <Textarea r {...form.getInputProps('description')} icon={"📝"} size={"md"} placeholder={"Description"} />
                         </Grid.Col>
                         <Grid.Col span={12}><Button color={"violet"} loading={state.loading} size={"md"} type={"submit"}>Add todos</Button></Grid.Col>
                     </Grid>
