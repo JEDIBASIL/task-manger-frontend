@@ -80,9 +80,6 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
         )
     }
     useEffect(() => {
-        console.log(state)
-    }, [state])
-    useEffect(() => {
         if (state2.data?.status === "success") {
             setCategory([...category, { label: state2.data?.data?.name, value: state2.data?.data?._id }]);
             showNotification({
@@ -138,7 +135,7 @@ const AddTaskDrawer: React.FC<AddTaskDrawerProps> = ({ }) => {
                             data={category}
                             creatable
                             getCreateLabel={(query) => `+ Create ${query}`}
-                            nothingFound={category.length === 0 ? <Loader variant="bars" /> : "type to create category"}
+                            nothingFound={category.length === 0 ? <Loader color={"violet"} variant="bars" /> : "type to create category"}
                             onCreate={(query) => addCategory(query)} />
                         </Grid.Col>
                         <Grid.Col span={12}> <MultiSelect  {...form.getInputProps('people')} required={false} name={"people"} icon={"👫"} placeholder="People" searchable size={"md"} data={[

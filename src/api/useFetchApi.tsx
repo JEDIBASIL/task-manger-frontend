@@ -15,7 +15,8 @@ interface AxiosConfig {
 const instance = axios.create({
     baseURL: 'https://jedibasil-task-manger-backend.onrender.com/api/v1',
     headers: {
-        "Authorization": `Bearer ${getAuthToken("rqwt")}`
+        "Authorization": `Bearer ${getAuthToken("rqwt")}`,
+        "Content-Type": "application/json"
     }
 });
 
@@ -36,7 +37,7 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
                 setState({ data: fetchedData, loading: false, error: null });
             } catch (error: unknown) {
                 if (error instanceof AxiosError)
-                setState({ data: null, loading: false, error: error?.response });
+                    setState({ data: null, loading: false, error: error?.response });
                 console.log(error)
             }
         };
@@ -57,6 +58,6 @@ export const requestHandler = ({ method, url, headers, data }: AxiosConfig, setR
         .catch(error => {
             if (error instanceof AxiosError)
                 setResponse({ data: null, loading: false, error: error?.response });
-                console.log(error)
+            console.log(error)
         })
 }

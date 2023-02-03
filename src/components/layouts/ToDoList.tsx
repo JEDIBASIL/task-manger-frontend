@@ -52,8 +52,7 @@ const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
         requestHandler(
             {
                 method: "delete",
-                url: "/task",
-                data: { id }
+                url: `/task/${id}`,
             },
             setState
         )
@@ -90,9 +89,9 @@ const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
                             </Link>
                             <Menu.Divider />
                             <Menu.Label>Danger zone</Menu.Label>
-                            <Menu.Item onClick={()=>{
-                                console.log(id)
-                                deleteTask(id)}} color="red" icon={<IconTrash size={14} />}>Delete task</Menu.Item>
+                            <Menu.Item onClick={() => {
+                                deleteTask(id)
+                            }} color="red" icon={<IconTrash size={14} />}>Delete task</Menu.Item>
                         </Menu.Dropdown>
                     </Menu>
                 </div>

@@ -41,4 +41,11 @@ const restPasswordSchema = z
             .min(8, { message: "Password should atleast be 8 letters" }),
     })
 
-export { signInSchema, signUpSchema, addTodoSchema as addTodoSchema, forgotPasswordEmailSchema, restPasswordSchema }
+
+const updateTaskSchema = z.object({
+    name: z.string().min(1, { message: "name is required" }),
+    category: z.string().min(1, { message: "name is required" }),
+    description: z.string().nullable()
+})
+
+export { signInSchema, signUpSchema, addTodoSchema as addTodoSchema, forgotPasswordEmailSchema, restPasswordSchema, updateTaskSchema }

@@ -77,7 +77,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({ }) => {
                         data={category}
                         creatable
                         getCreateLabel={(query) => `+ Create ${query}`}
-                        nothingFound={!data ? <Loader variant="bars" /> : "type to create category"}
+                        nothingFound={!data ? <Loader color={"violet"} variant="bars" /> : "type to create category"}
                         onCreate={(query) => addCategory(query)}
                     />
                     <Tooltip label="Tooltip">

@@ -26,7 +26,7 @@ const Tasks: React.FC = () => {
                     !data
                         ?
                         <Center sx={{ height: "60vh", position: 'relative' }}>
-                            <Loader variant={"bars"} size={"xl"} />
+                            <Loader color={"violet"} variant={"bars"} size={"xl"} />
                         </Center>
                         :
                         <div className='task_content'>

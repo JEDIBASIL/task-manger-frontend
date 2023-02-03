@@ -1,94 +1,202 @@
 import React, { useEffect, useState } from 'react';
-import { Badge, Button, Checkbox, Flex, Tabs, TextInput, Textarea } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
-import { addTodoSchema } from '../../schema';
-import { useForm, zodResolver } from "@mantine/form";
+import { Badge, Button, Center, Checkbox, Flex, Loader, Select, Tabs, TextInput, Textarea } from '@mantine/core';
+import { updateTaskSchema } from '../../schema';
+import { UseFormReturnType, useForm, zodResolver } from "@mantine/form";
 import { getAuthToken } from '../../utils/auth';
-import { requestHandler } from '../../api/useFetchApi';
+import { requestHandler, useApi } from '../../api/useFetchApi';
 import ApiState from '../../interface/api.interface';
 import { RiSendPlane2Fill } from 'react-icons/ri';
+import { useParams } from 'react-router-dom';
+import { showNotification } from '@mantine/notifications';
+import { dateConverter } from '../../utils/date';
 
 const Task: React.FC = () => {
-    const [drawer, setDrawer] = useState<boolean>(false);
+    const { task } = useParams()
+    const { data, loading, error } = useApi({ method: "get", url: `/task/${task}` })
+    const [state2, setState2] = useState<ApiState>({
+        data: null,
+        loading: false,
+        error: null
+    });
     const [state, setState] = useState<ApiState>({
         data: null,
         loading: false,
         error: null
     });
-    const form = useForm({
-        validate: zodResolver(addTodoSchema),
+    const [category, setCategory] = useState<{ value: string, label: string }[]>([]);
+    const categoryFetch = useApi({ method: "get", url: "/task/category" })
+    let form: UseFormReturnType<{ name: string, description: string, category: string, }> = useForm({
+        validate: zodResolver(updateTaskSchema),
         initialValues: {
             name: "",
-            starts: null,
-            ends: null,
-            people: []
+            description: "",
+            category: ""
         },
     });
 
-    const handleSubmit = (task: any) => {
+    useEffect(() => {
+        console.log(categoryFetch)
+        if (categoryFetch.data?.status === "success") {
+            setCategory(categoryFetch.data.data.map((_id: any, name: string) => ({ label: _id?.name, value: _id?._id })))
+        }
+    }, [categoryFetch])
+    useEffect(() => {
+        if (state2.data?.status === "success") {
+            setCategory([...category, { label: state2.data?.data?.name, value: state2.data?.data?._id }]);
+            showNotification({
+                title: "Successful",
+                message: "category created"
+            })
+        }
+
+        if (state2.error?.status === 500) {
+            showNotification({
+                title: "Failed",
+                message: "an error occurred",
+                color: "red"
+            })
+        }
+    }, [state2])
+    useEffect(() => {
+        if (state.data?.status === "success") {
+            showNotification({
+                title: "Successful",
+                message: "task edited"
+            })
+        }
+
+        if (state.error?.status === 500) {
+            showNotification({
+                title: "Failed",
+                message: "an error occurred",
+                color: "red"
+            })
+        }
+        if (state.error?.status === 404) {
+            showNotification({
+                title: "Failed",
+                message: "task not found",
+                color: "red"
+            })
+        }
+    }, [state])
+
+
+
+    const handleSubmit = (updates: any) => {
         console.log(task)
         requestHandler(
             {
-                method: "post",
-                url: "http://localhost:8084/api/v1/task",
-                data: task,
+                method: "put",
+                url: `/task/${task}`,
+                data: updates,
             },
             setState
         )
     }
     useEffect(() => {
-        console.log(state)
-    }, [state])
+        console.log(data)
+        form.setValues({
+            name: data?.data?.name,
+            description: data?.data?.description,
+            category: data?.data?.category?._id
+        })
+    }, [data])
+    const addCategory = (name: string) => {
+        requestHandler(
+            {
+                method: "post",
+                url: "/task/category",
+                data: { name }
+            },
+            setState2
+        )
+        const item = { value: name, label: name };
+        console.log(item)
+        return item
+    }
     return (
         <>
             <div className='task_content'>
-                <div className="each_task">
-                    <h1>
-                        <Textarea autosize unstyled value={"🛍 Go shopping"} />
-                    </h1>
-                    <p className='sub_text'>
-                        <Textarea autosize unstyled value={"If shopping doesn't make you happy, then you're in the wrong shop. Too many people spend money they haven't earned, to buy things they don't want, to impress people they don't like. The odds of going to the store for a loaf of bread and coming out with only a loaf of bread are three billion to one."} />
-                    </p>
-                    <Tabs defaultValue="gallery" color={"gray"}>
-                        <Tabs.List>
-                            <Tabs.Tab value="gallery"><h3 className='tab_header'>People</h3></Tabs.Tab>
-                            <Tabs.Tab value="messages"><h3 className='tab_header'>Comments</h3></Tabs.Tab>
-                            <Tabs.Tab value="settings"><h3 className='tab_header'>Settings</h3></Tabs.Tab>
+                {
+                    error === null
+                        ?
+                        <form onSubmit={form.onSubmit((values) => handleSubmit(values))} className="each_task">
+                            {
+                                !data
+                                    ?
+                                    <Center sx={{ height: "60vh", position: 'relative' }}>
+                                        <Loader color={"violet"} variant={"bars"} size={"xl"} />
+                                    </Center>
+                                    :
+                                    <>
+                                        <h3>Starts:{dateConverter(data?.data?.starts)}</h3>
+                                        <h3>Ends:{dateConverter(data?.data?.ends)}</h3>
+                                        <h1>
+                                            <Textarea {...form.getInputProps('name')} autosize />
+                                        </h1>
+                                        <p className='sub_text'>
+                                            <Textarea placeholder='Description' {...form.getInputProps('description')} autosize />
+                                        </p>
+                                        {/* <Tabs defaultValue="gallery" color={"gray"}>
+                                    <Tabs.List>
+                                        <Tabs.Tab value="gallery"><h3 className='tab_header'>People</h3></Tabs.Tab>
+                                        <Tabs.Tab value="messages"><h3 className='tab_header'>Comments</h3></Tabs.Tab>
+                                        <Tabs.Tab value="settings"><h3 className='tab_header'>Settings</h3></Tabs.Tab>
 
-                        </Tabs.List>
+                                    </Tabs.List>
 
-                        <Tabs.Panel value="gallery" pt="xs">
-                            <Button>Add people</Button>
-                            <div className='people_container'>
-                                <ul>
-                                    <Checkbox.Group
-                                        withAsterisk
-                                        spacing={5}
-                                    >
-                                        <li>
-                                            <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
-                                            <Badge>Badge</Badge>
-                                        </li>
-                                        <li>
-                                            <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
-                                        </li>
-                                    </Checkbox.Group>
-                                </ul>
-                            </div>
-                        </Tabs.Panel>
+                                    <Tabs.Panel value="gallery" pt="xs">
+                                        <Button>Add people</Button>
+                                        <div className='people_container'>
+                                            <ul>
+                                                <Checkbox.Group
+                                                    withAsterisk
+                                                    spacing={5}
+                                                >
+                                                    <li>
+                                                        <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
+                                                        <Badge>Badge</Badge>
+                                                    </li>
+                                                    <li>
+                                                        <Checkbox value="react" label={<><h4>king@gmail.com</h4></>} />
+                                                    </li>
+                                                </Checkbox.Group>
+                                            </ul>
+                                        </div>
+                                    </Tabs.Panel>
 
-                        <Tabs.Panel value="messages" pt="xs">
-                           <Flex justify={"space-between"} align={"center"}>
-                            <Textarea size={'md'} autosize placeholder='Write a comment'/>
-                            <Button color={"violet"}><RiSendPlane2Fill size={22} /></Button>
-                           </Flex>
-                        </Tabs.Panel>
+                                    <Tabs.Panel value="messages" pt="xs">
+                                        <Flex justify={"space-between"} align={"center"}>
+                                            <Textarea size={'md'} autosize placeholder='Write a comment' />
+                                            <Button color={"violet"}><RiSendPlane2Fill size={22} /></Button>
+                                        </Flex>
+                                    </Tabs.Panel>
 
-                        <Tabs.Panel value="settings" pt="xs">
-                            Settings tab content
-                        </Tabs.Panel>
-                    </Tabs>
-                </div>
+                                    <Tabs.Panel value="settings" pt="xs">
+                                        Settings tab content
+                                    </Tabs.Panel>
+                                </Tabs> */}
+                                        <Select
+                                            size={"md"}
+                                            placeholder="Category"
+                                            {...form.getInputProps('category')}
+                                            name={"category"}
+                                            searchable
+                                            data={category}
+                                            creatable
+                                            getCreateLabel={(query) => `+ Create ${query}`}
+                                            nothingFound={category.length === 0 ? <Loader color={"violet"} variant="bars" /> : "type to create category"}
+                                            onCreate={(query) => addCategory(query)} />
+                                        <Button mt={10} color={"violet"} loading={state.loading} type={"submit"}>Edit</Button>
+                                    </>
+
+                            }
+
+                        </form>
+                        :
+                        <h2>Network error</h2>
+                }
             </div>
         </>
     );

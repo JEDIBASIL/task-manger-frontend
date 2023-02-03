@@ -9,8 +9,8 @@ export const setAuthToken = (key: string, value: string): boolean => {
     }
 }
 
-export const isAuth = (): boolean => {
-    const key = Cookies.get("rty5")
+export const isAuth = (keyId:string): boolean => {
+    const key = Cookies.get(keyId)
     return !key ? false : true;
 }
 

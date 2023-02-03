@@ -1,13 +1,13 @@
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { Navbar } from "../../components";
-import { Link as A, useNavigate } from "react-router-dom"
+import { Link as A, Navigate, useNavigate } from "react-router-dom"
 import { signInSchema } from "../../schema";
 import { useForm, zodResolver } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import { useState, useEffect } from "react";
 import ApiState from "../../interface/api.interface";
 import { requestHandler } from "../../api/useFetchApi";
-import { setAuthToken } from "../../utils/auth";
+import { isAuth, setAuthToken } from "../../utils/auth";
 
 const SignIn: React.FC = () => {
     const navigate = useNavigate();
@@ -29,7 +29,6 @@ const SignIn: React.FC = () => {
             email: user.email,
             password: user.password
         }
-        console.log(newUser)
         requestHandler(
             {
                 method: "post",
@@ -73,7 +72,7 @@ const SignIn: React.FC = () => {
                 title: 'Success',
                 message: 'Account verified',
             })
-            navigate("/app");
+            navigate("/tasks");
         }
         if (state?.data?.status && state.data?.message.includes("sent")) {
             console.log("sent")
@@ -83,18 +82,23 @@ const SignIn: React.FC = () => {
 
     return (
         <>
-            <Navbar logo />
-            <div className={"form_content"}>
-                <h1>Welcome
-                    Back</h1>
-                <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-                    <TextInput  {...form.getInputProps('email')} mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
-                    <PasswordInput  {...form.getInputProps('password')} placeholder={"Password"} size={"lg"} />
-                    <div className='forgot_password_container'><A to="/forgot-password">Forgot password?</A></div>
-                    <Button color={"violet"} fullWidth loading={state.loading} type={"submit"} size={"lg"}>Sign in</Button>
-                </form>
-                <p className={"more"}><A to="/sign-up">Sign up</A> if you don't have an account</p>
-            </div>
+            {isAuth("rqwt") ? <Navigate to={`/tasks`} />
+                :
+                <>
+                    <Navbar logo />
+                    <div className={"form_content"}>
+                        <h1>Welcome
+                            Back</h1>
+                        <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+                            <TextInput  {...form.getInputProps('email')} mb={15} placeholder={"Email"} size={"lg"} type={"email"} />
+                            <PasswordInput  {...form.getInputProps('password')} placeholder={"Password"} size={"lg"} />
+                            <div className='forgot_password_container'><A to="/forgot-password">Forgot password?</A></div>
+                            <Button color={"violet"} fullWidth loading={state.loading} type={"submit"} size={"lg"}>Sign in</Button>
+                        </form>
+                        <p className={"more"}><A to="/sign-up">Sign up</A> if you don't have an account</p>
+                    </div>
+                </>
+            }
         </>
     );
 };
