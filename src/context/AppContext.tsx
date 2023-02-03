@@ -7,6 +7,7 @@ export class AppContextControls {
     addTaskDrawer: boolean | undefined;
     calendarDrawer: boolean | undefined;
     mobileDrawer: boolean | undefined;
+    monitor:number
 }
 
 

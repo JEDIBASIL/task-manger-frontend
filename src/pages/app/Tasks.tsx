@@ -8,14 +8,14 @@ import AppContext from '../../context/AppContext';
 const Tasks: React.FC = () => {
     const { data, loading, error } = useApi({ method: "get", url: "/task" })
     const [tasks, setTasks] = useState<any[]>([]);
-    const {controls} = useContext(AppContext)
+    const {setControls, controls} = useContext(AppContext)
 
     useEffect(() => {
         if (data?.status === "success") {
             setTasks(data?.data?.tasks)
             console.log(tasks)
         }
-    }, [data, loading, error])
+    }, [data, loading, error, controls.monitor])
 
     return (
         <>

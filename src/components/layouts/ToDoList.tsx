@@ -15,7 +15,7 @@ interface ToDoListProps {
 }
 
 const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
-
+    const { setControls, controls } = useContext(AppContext)
     const [state, setState] = useState<ApiState>({
         data: null,
         loading: false,
@@ -23,12 +23,12 @@ const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
     });
 
     useEffect(() => {
-        console.log(state)
         if (state.data?.status === "success") {
             showNotification({
                 title: "Successful",
                 message: "task deleted"
             })
+            setControls({ ...controls, monitor: 0 })
         }
 
         if (state.error?.status === 500) {
