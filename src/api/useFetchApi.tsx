@@ -13,7 +13,7 @@ interface AxiosConfig {
 
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8084/api/v1',
+    baseURL: 'https://jedibasil-task-manger-backend.onrender.com/api/v1',
     headers: {
         "Authorization": `Bearer ${getAuthToken("rqwt")}`,
         "Content-Type": "application/json"

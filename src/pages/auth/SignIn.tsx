@@ -72,7 +72,7 @@ const SignIn: React.FC = () => {
                 title: 'Success',
                 message: 'Account verified',
             })
-            navigate("/tasks");
+            navigate("/app/tasks");
         }
         if (state?.data?.status && state.data?.message.includes("sent")) {
             console.log("sent")
@@ -82,7 +82,7 @@ const SignIn: React.FC = () => {
 
     return (
         <>
-            {isAuth("rqwt") ? <Navigate to={`/tasks`} />
+            {isAuth("rqwt") ? <Navigate to={`/app/tasks`} />
                 :
                 <>
                     <Navbar logo />

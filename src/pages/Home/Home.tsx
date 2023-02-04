@@ -5,7 +5,7 @@ import { isAuth } from '../../utils/auth';
 const Home: React.FC = () => {
     return (
         <>
-            {isAuth("rqwt") ? <Navigate to={`/tasks`} />
+            {isAuth("rqwt") ? <Navigate to={`/app/tasks`} />
                 :
                 <>
                     <Navbar />
