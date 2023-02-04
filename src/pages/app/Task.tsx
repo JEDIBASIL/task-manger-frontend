@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Badge, Button, Center, Checkbox, Flex, Loader, Select, Tabs, TextInput, Textarea } from '@mantine/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { Badge, Button, Center, Checkbox, Flex, Loader, Select, SelectItem, Tabs, TextInput, Textarea } from '@mantine/core';
 import { updateTaskSchema } from '../../schema';
 import { UseFormReturnType, useForm, zodResolver } from "@mantine/form";
 import { getAuthToken } from '../../utils/auth';
@@ -9,22 +9,12 @@ import { RiSendPlane2Fill } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import { showNotification } from '@mantine/notifications';
 import { dateConverter } from '../../utils/date';
+import AppContext from '../../context/AppContext';
 
 const Task: React.FC = () => {
     const { task } = useParams()
-    const { data, loading, error } = useApi({ method: "get", url: `/task/${task}` })
-    const [state2, setState2] = useState<ApiState>({
-        data: null,
-        loading: false,
-        error: null
-    });
-    const [state, setState] = useState<ApiState>({
-        data: null,
-        loading: false,
-        error: null
-    });
-    const [category, setCategory] = useState<{ value: string, label: string }[]>([]);
-    const categoryFetch = useApi({ method: "get", url: "/task/category" })
+    const { controls, updateTask, addCategory, updateTaskState } = useContext(AppContext)
+    const { data, loading, error } = useApi({ method: "get", url: `/task/${task}` }, [])
     let form: UseFormReturnType<{ name: string, description: string, category: string, }> = useForm({
         validate: zodResolver(updateTaskSchema),
         initialValues: {
@@ -33,95 +23,23 @@ const Task: React.FC = () => {
             category: ""
         },
     });
-
     useEffect(() => {
-        console.log(categoryFetch)
-        if (categoryFetch.data?.status === "success") {
-            setCategory(categoryFetch.data.data.map((_id: any, name: string) => ({ label: _id?.name, value: _id?._id })))
-        }
-    }, [categoryFetch])
-    useEffect(() => {
-        if (state2.data?.status === "success") {
-            setCategory([...category, { label: state2.data?.data?.name, value: state2.data?.data?._id }]);
-            showNotification({
-                title: "Successful",
-                message: "category created"
-            })
-        }
-
-        if (state2.error?.status === 500) {
-            showNotification({
-                title: "Failed",
-                message: "an error occurred",
-                color: "red"
-            })
-        }
-    }, [state2])
-    useEffect(() => {
-        if (state.data?.status === "success") {
-            showNotification({
-                title: "Successful",
-                message: "task edited"
-            })
-        }
-
-        if (state.error?.status === 500) {
-            showNotification({
-                title: "Failed",
-                message: "an error occurred",
-                color: "red"
-            })
-        }
-        if (state.error?.status === 404) {
-            showNotification({
-                title: "Failed",
-                message: "task not found",
-                color: "red"
-            })
-        }
-    }, [state])
-
-
-
-    const handleSubmit = (updates: any) => {
-        console.log(task)
-        requestHandler(
-            {
-                method: "put",
-                url: `/task/${task}`,
-                data: updates,
-            },
-            setState
-        )
-    }
-    useEffect(() => {
-        console.log(data)
-        form.setValues({
+       if(data){
+         form.setValues({
             name: data?.data?.name,
             description: data?.data?.description,
             category: data?.data?.category?._id
         })
+       }
     }, [data])
-    const addCategory = (name: string) => {
-        requestHandler(
-            {
-                method: "post",
-                url: "/task/category",
-                data: { name }
-            },
-            setState2
-        )
-        const item = { value: name, label: name };
-        console.log(item)
-        return item
-    }
+
     return (
         <>
             <div className='task_content'>
                 {
                     error === null
                         ?
-                        <form onSubmit={form.onSubmit((values) => handleSubmit(values))} className="each_task">
+                        <form onSubmit={form.onSubmit((values) => updateTask(values, task as string))} className="each_task">
                             {
                                 !data
                                     ?
@@ -183,12 +101,14 @@ const Task: React.FC = () => {
                                             {...form.getInputProps('category')}
                                             name={"category"}
                                             searchable
-                                            data={category}
+                                            data={controls?.category as SelectItem[]}
                                             creatable
                                             getCreateLabel={(query) => `+ Create ${query}`}
-                                            nothingFound={category.length === 0 ? <Loader color={"violet"} variant="bars" /> : "type to create category"}
+                                            nothingFound={"type to create category"}
                                             onCreate={(query) => addCategory(query)} />
-                                        <Button mt={10} color={"violet"} loading={state.loading} type={"submit"}>Edit</Button>
+
+
+                                        <Button mt={10} color={"violet"} loading={updateTaskState.loading} type={"submit"}>Edit</Button>
                                     </>
 
                             }

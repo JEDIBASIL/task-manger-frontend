@@ -13,7 +13,7 @@ interface AxiosConfig {
 
 
 const instance = axios.create({
-    baseURL: 'https://jedibasil-task-manger-backend.onrender.com/api/v1',
+    baseURL: 'http://localhost:8084/api/v1',
     headers: {
         "Authorization": `Bearer ${getAuthToken("rqwt")}`,
         "Content-Type": "application/json"
@@ -21,7 +21,7 @@ const instance = axios.create({
 });
 
 
-export const useApi = ({ method, url, data }: AxiosConfig) => {
+export const useApi = ({ method, url, data }: AxiosConfig, dependencies: any[]) => {
     const [state, setState] = useState<ApiState>({
         data: null,
         loading: true,
@@ -43,7 +43,7 @@ export const useApi = ({ method, url, data }: AxiosConfig) => {
         };
 
         fetchData();
-    }, [url]);
+    }, [...dependencies, url]);
 
     return state;
 };

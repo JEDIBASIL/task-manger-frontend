@@ -28,8 +28,8 @@ const SideBar: React.FC<SideBarProps> = ({ className, theme }) => {
                 </div>
                 }
                 <ul >
-                    {/* <SidebarLink className={location.pathname !== "/app" ? "inactive" : "active"} icon={<RxHome size={30} />} name={"Home"} path={"/app"} /> */}
-                    {/* <SidebarLink icon={<RxBell size={30} />} name={"Notification"} path={"/app/notification"} /> */}
+                    <SidebarLink className={location.pathname !== "/app" ? "inactive" : "active"} icon={<RxHome size={30} />} name={"Home"} path={"/app"} />
+                    <SidebarLink icon={<RxBell size={30} />} name={"Notification"} path={"/app/notification"} />
                     <SidebarLink icon={<RxRocket size={30} />} name={"Task"} path={"/app/tasks"} />
                 </ul>
                 <div className="navbar_bottom">

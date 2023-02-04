@@ -16,50 +16,8 @@ interface ToDoListProps {
 }
 
 const ToDoList: React.FC<ToDoListProps> = ({ name, id, category }) => {
-    const { setControls, controls } = useContext(AppContext)
-    const [state, setState] = useState<ApiState>({
-        data: null,
-        loading: false,
-        error: null
-    });
-
-    useEffect(() => {
-        if (state.data?.status === "success") {
-            showNotification({
-                title: "Successful",
-                message: "task deleted"
-            })
-            setControls({ ...controls, monitor: 3 } as AppContextControls)
-        }
-
-        if (state.error?.status === 500) {
-            showNotification({
-                title: "Failed",
-                message: "an error occurred",
-                color: "red"
-            })
-        }
-
-        if (state.error?.status === 404) {
-            showNotification({
-                title: "Failed",
-                message: "task not found",
-                color: "red"
-            })
-        }
-    }, [state])
-
-    const deleteTask = (id: string) => {
-        requestHandler(
-            {
-                method: "delete",
-                url: `/task/${id}`,
-            },
-            setState
-        )
-    }
-
-
+    const { deleteTask } = useContext(AppContext)
+   
     return (
         <>
             <li>
