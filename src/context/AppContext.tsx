@@ -65,7 +65,7 @@ export const AppContextProvider = ({ children, }: { children: React.ReactNode; }
 
     useEffect(() => {
         if (fetchedCategory.data?.status === "success") {
-            const newCategory = controls?.category.map(item => {
+            const newCategory = controls?.category?.map(item => {
                 if (item.label === item.value) return { ...item, value: addCategoryState.data?.data?._id }
                 return item
             })
